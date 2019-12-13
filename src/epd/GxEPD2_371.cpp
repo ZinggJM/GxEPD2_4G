@@ -23,7 +23,7 @@ void GxEPD2_371::clearScreen(uint8_t value)
 {
   writeScreenBuffer(value);
   refresh(true);
-  writeScreenBuffer(value);
+  if (_refresh_mode != grey_refresh) writeScreenBuffer(value);
 }
 
 void GxEPD2_371::writeScreenBuffer(uint8_t value)
@@ -35,7 +35,7 @@ void GxEPD2_371::writeScreenBuffer(uint8_t value)
   {
     _writeData(value);
   }
-  if (_initial_refresh)
+  if (_initial_refresh || (_refresh_mode == grey_refresh))
   {
     _writeCommand(0x10); // preset previous
     for (uint32_t i = 0; i < uint32_t(WIDTH) * uint32_t(HEIGHT) / 8; i++)
@@ -125,7 +125,7 @@ void GxEPD2_371::writeImage_4G(const uint8_t bitmap[], uint8_t bpp, int16_t x, i
       {
         uint8_t in_byte;
         // use wb, h of bitmap for index!
-        uint16_t idx = mirror_y ? j + k + dx / ppb + ((h - 1 - (i + dy))) * wb : j + k + dx / ppb + (i + dy) * wb;
+        uint32_t idx = mirror_y ? j + k + dx / ppb + uint32_t((h - 1 - (i + dy))) * wb : j + k + dx / ppb + uint32_t(i + dy) * wb;
         if (pgm)
         {
 #if defined(__AVR) || defined(ESP8266) || defined(ESP32)
@@ -163,7 +163,7 @@ void GxEPD2_371::writeImage_4G(const uint8_t bitmap[], uint8_t bpp, int16_t x, i
       {
         uint8_t in_byte;
         // use wb, h of bitmap for index!
-        uint16_t idx = mirror_y ? j + k + dx / ppb + ((h - 1 - (i + dy))) * wb : j + k + dx / ppb + (i + dy) * wb;
+        uint32_t idx = mirror_y ? j + k + dx / ppb + uint32_t((h - 1 - (i + dy))) * wb : j + k + dx / ppb + uint32_t(i + dy) * wb;
         if (pgm)
         {
 #if defined(__AVR) || defined(ESP8266) || defined(ESP32)
@@ -289,7 +289,7 @@ void GxEPD2_371::writeImagePart_4G(const uint8_t bitmap[], uint8_t bpp, int16_t 
       {
         uint8_t in_byte;
         // use wb_bitmap, h_bitmap of bitmap for index!
-        uint16_t idx = mirror_y ? x_part / ppb + j + k + dx / ppb + ((h_bitmap - 1 - (y_part + i + dy))) * wb_bitmap : x_part / ppb + j + k + dx / ppb + (y_part + i + dy) * wb_bitmap;
+        uint32_t idx = mirror_y ? x_part / ppb + j + k + dx / ppb + uint32_t((h_bitmap - 1 - (y_part + i + dy))) * wb_bitmap : x_part / ppb + j + k + dx / ppb + uint32_t(y_part + i + dy) * wb_bitmap;
         if (pgm)
         {
 #if defined(__AVR) || defined(ESP8266) || defined(ESP32)
@@ -327,7 +327,7 @@ void GxEPD2_371::writeImagePart_4G(const uint8_t bitmap[], uint8_t bpp, int16_t 
       {
         uint8_t in_byte;
         // use wb_bitmap, h_bitmap of bitmap for index!
-        uint16_t idx = mirror_y ? x_part / ppb + j + k + dx / ppb + ((h_bitmap - 1 - (y_part + i + dy))) * wb_bitmap : x_part / ppb + j + k + dx / ppb + (y_part + i + dy) * wb_bitmap;
+        uint32_t idx = mirror_y ? x_part / ppb + j + k + dx / ppb + uint32_t((h_bitmap - 1 - (y_part + i + dy))) * wb_bitmap : x_part / ppb + j + k + dx / ppb + uint32_t(y_part + i + dy) * wb_bitmap;
         if (pgm)
         {
 #if defined(__AVR) || defined(ESP8266) || defined(ESP32)

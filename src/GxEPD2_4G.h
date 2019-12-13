@@ -19,6 +19,7 @@
 #include "epd/GxEPD2_270.h"
 #include "epd/GxEPD2_371.h"
 #include "epd/GxEPD2_420.h"
+#include "epd/GxEPD2_750_T7.h"
 
 #ifndef ENABLE_GxEPD2_GFX
 // default is off
@@ -39,7 +40,7 @@ class GxEPD2_4G_R : public Adafruit_GFX
   public:
     GxEPD2_Type& epd2;
 #if ENABLE_GxEPD2_GFX
-    GxEPD2_4G_R(GxEPD2_Type& epd2_instance) : epd2(epd2_instance), GxEPD2_GFX(epd2, GxEPD2_Type::WIDTH, GxEPD2_Type::HEIGHT)
+    GxEPD2_4G_R(GxEPD2_Type& epd2_instance) : GxEPD2_GFX(epd2, GxEPD2_Type::WIDTH, GxEPD2_Type::HEIGHT), epd2(epd2_instance)
 #else
     GxEPD2_4G_R(GxEPD2_Type & epd2_instance) : Adafruit_GFX(GxEPD2_Type::WIDTH, GxEPD2_Type::HEIGHT), epd2(epd2_instance)
 #endif
@@ -355,10 +356,19 @@ class GxEPD2_4G_R : public Adafruit_GFX
     {
       epd2.writeImage(bitmap, x, y, w, h, invert, mirror_y, pgm);
     }
+    void writeImage_4G(const uint8_t bitmap[], uint8_t bpp, int16_t x, int16_t y, int16_t w, int16_t h, bool invert = false, bool mirror_y = false, bool pgm = false)
+    {
+      epd2.writeImage_4G(bitmap, bpp, x, y, w, h, invert, mirror_y, pgm);
+    }
     void writeImagePart(const uint8_t bitmap[], int16_t x_part, int16_t y_part, int16_t w_bitmap, int16_t h_bitmap,
                         int16_t x, int16_t y, int16_t w, int16_t h, bool invert = false, bool mirror_y = false, bool pgm = false)
     {
       epd2.writeImagePart(bitmap, x_part, y_part, w_bitmap, h_bitmap, x, y, w, h, invert, mirror_y, pgm);
+    }
+    void writeImagePart_4G(const uint8_t bitmap[], uint8_t bpp, int16_t x_part, int16_t y_part, int16_t w_bitmap, int16_t h_bitmap,
+                           int16_t x, int16_t y, int16_t w, int16_t h, bool invert = false, bool mirror_y = false, bool pgm = false)
+    {
+      epd2.writeImagePart_4G(bitmap, bpp, x_part, y_part, w_bitmap, h_bitmap, x, y, w, h, invert, mirror_y, pgm);
     }
     void writeImage(const uint8_t* black, const uint8_t* color, int16_t x, int16_t y, int16_t w, int16_t h, bool invert, bool mirror_y, bool pgm)
     {
@@ -388,10 +398,19 @@ class GxEPD2_4G_R : public Adafruit_GFX
     {
       epd2.drawImage(bitmap, x, y, w, h, invert, mirror_y, pgm);
     }
+    void drawImage_4G(const uint8_t bitmap[], uint8_t bpp, int16_t x, int16_t y, int16_t w, int16_t h, bool invert = false, bool mirror_y = false, bool pgm = false)
+    {
+      epd2.drawImage_4G(bitmap, bpp, x, y, w, h, invert, mirror_y, pgm);
+    }
     void drawImagePart(const uint8_t bitmap[], int16_t x_part, int16_t y_part, int16_t w_bitmap, int16_t h_bitmap,
                        int16_t x, int16_t y, int16_t w, int16_t h, bool invert = false, bool mirror_y = false, bool pgm = false)
     {
       epd2.drawImagePart(bitmap, x_part, y_part, w_bitmap, h_bitmap, x, y, w, h, invert, mirror_y, pgm);
+    }
+    void drawImagePart_4G(const uint8_t bitmap[], uint8_t bpp, int16_t x_part, int16_t y_part, int16_t w_bitmap, int16_t h_bitmap,
+                          int16_t x, int16_t y, int16_t w, int16_t h, bool invert = false, bool mirror_y = false, bool pgm = false)
+    {
+      epd2.drawImagePart_4G(bitmap, bpp, x_part, y_part, w_bitmap, h_bitmap, x, y, w, h, invert, mirror_y, pgm);
     }
     void drawImage(const uint8_t* black, const uint8_t* color, int16_t x, int16_t y, int16_t w, int16_t h, bool invert, bool mirror_y, bool pgm)
     {
@@ -485,7 +504,7 @@ class GxEPD2_4G : public GxEPD2_4G_R<GxEPD2_Type, page_height>
   private:
     GxEPD2_Type epd2_copy;
   public:
-    GxEPD2_4G(GxEPD2_Type epd2_instance) : epd2_copy(epd2_instance), GxEPD2_4G_R<GxEPD2_Type, page_height>(epd2_copy)
+    GxEPD2_4G(GxEPD2_Type epd2_instance) : GxEPD2_4G_R<GxEPD2_Type, page_height>(epd2_copy), epd2_copy(epd2_instance)
     {
     }
 };

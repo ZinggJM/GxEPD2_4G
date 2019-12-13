@@ -64,7 +64,13 @@
 - GDEW027W3      2.7" b/w
 - GDEW0371W7     3.7" b/w
 - GDEW042T2      4.2" b/w
+- GDEW075T7      7.5" b/w 800x480
 
+### Version 1.0.1
+- added support for GDEW075T7
+- GDEW075T7 uses same wavetable as the other ones, no "official" (demo) yet
+- GDEW075T7 grey level behaviour is less good than e.g. on GDEW0371W7
+- some fixes and improvements
 #### Version 1.0.0
 - initial version for 4 grey level support, experimental
 - (slow) partial refresh doesn't work with 4G on some panels

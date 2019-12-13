@@ -45,7 +45,7 @@
 
 // base class GxEPD2_GFX can be used to pass references or pointers to the display instance as parameter, uses ~1.2k more code
 // enable or disable GxEPD2_GFX base class
-#define ENABLE_GxEPD2_GFX 0
+#define ENABLE_GxEPD2_GFX 1
 
 #include <GxEPD2_4G.h> // needs be first include
 #include <GxEPD2_BW.h>
@@ -58,6 +58,7 @@
 //GxEPD2_4G<GxEPD2_270, GxEPD2_270::HEIGHT> display(GxEPD2_270(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4));
 //GxEPD2_4G<GxEPD2_371, GxEPD2_371::HEIGHT> display(GxEPD2_371(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4));
 //GxEPD2_4G<GxEPD2_420, GxEPD2_420::HEIGHT> display(GxEPD2_420(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4));
+//GxEPD2_4G<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT / 2> display(GxEPD2_750_T7(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4));
 
 // ***** for mapping of Waveshare e-Paper ESP8266 Driver Board *****
 // select one , can use full buffer size (full HEIGHT)
@@ -66,6 +67,7 @@
 //GxEPD2_4G<GxEPD2_270, GxEPD2_270::HEIGHT> display(GxEPD2_270(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16));
 //GxEPD2_4G<GxEPD2_371, GxEPD2_371::HEIGHT> display(GxEPD2_371(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16));
 //GxEPD2_4G<GxEPD2_420, GxEPD2_420::HEIGHT> display(GxEPD2_420(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16));
+//GxEPD2_4G<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT / 2> display(GxEPD2_750_T7(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16));
 #endif
 
 #if defined(ESP32)
@@ -75,6 +77,8 @@
 //GxEPD2_4G<GxEPD2_270, GxEPD2_270::HEIGHT> display(GxEPD2_270(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4));
 //GxEPD2_4G<GxEPD2_371, GxEPD2_371::HEIGHT> display(GxEPD2_371(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4));
 //GxEPD2_4G<GxEPD2_420, GxEPD2_420::HEIGHT> display(GxEPD2_420(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4));
+// note: need to use half height buffer, to stay < 96000 bytes of RAM, would hang on setup else
+//GxEPD2_4G<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT / 2> display(GxEPD2_750_T7(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4));
 #endif
 
 #if defined(_BOARD_GENERIC_STM32F103C_H_)
@@ -86,6 +90,7 @@
 //GxEPD2_4G<GxEPD2_270, MAX_HEIGHT(GxEPD2_270)> display(GxEPD2_270(/*CS=4*/ SS, /*DC=*/ 3, /*RST=*/ 2, /*BUSY=*/ 1));
 //GxEPD2_4G<GxEPD2_371, MAX_HEIGHT(GxEPD2_371)> display(GxEPD2_371(/*CS=4*/ SS, /*DC=*/ 3, /*RST=*/ 2, /*BUSY=*/ 1));
 //GxEPD2_4G<GxEPD2_420, MAX_HEIGHT(GxEPD2_420)> display(GxEPD2_420(/*CS=4*/ SS, /*DC=*/ 3, /*RST=*/ 2, /*BUSY=*/ 1));
+//GxEPD2_4G<GxEPD2_750_T7, MAX_HEIGHT(GxEPD2_750_T7)> display(GxEPD2_750_T7(/*CS=4*/ SS, /*DC=*/ 3, /*RST=*/ 2, /*BUSY=*/ 1));
 #endif
 
 #if defined(__AVR)
@@ -97,6 +102,7 @@
 //GxEPD2_4G<GxEPD2_270, MAX_HEIGHT(GxEPD2_270)> display(GxEPD2_270(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7));
 //GxEPD2_4G<GxEPD2_371, MAX_HEIGHT(GxEPD2_371)> display(GxEPD2_371(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7));
 //GxEPD2_4G<GxEPD2_420, MAX_HEIGHT(GxEPD2_420)> display(GxEPD2_420(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7));
+//GxEPD2_4G<GxEPD2_750_T7, MAX_HEIGHT(GxEPD2_750_T7)> display(GxEPD2_750_T7(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7));
 
 // ***** for mapping of Waveshare Universal e-Paper Raw Panel Driver Shield for Arduino / NUCLEO *****
 // the RST line is not connected through level converter, but has a pull up resistor and a pull down diode to the Arduino pin; this is safe for 5V Arduino
@@ -109,6 +115,7 @@
 //GxEPD2_4G<GxEPD2_270, MAX_HEIGHT(GxEPD2_270)> display(GxEPD2_270(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
 //GxEPD2_4G<GxEPD2_371, MAX_HEIGHT(GxEPD2_371)> display(GxEPD2_371(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
 //GxEPD2_4G<GxEPD2_420, MAX_HEIGHT(GxEPD2_420)> display(GxEPD2_420(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
+//GxEPD2_4G<GxEPD2_750_T7, MAX_HEIGHT(GxEPD2_750_T7)> display(GxEPD2_750_T7(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
 #endif
 
 #include "GxEPD2_boards_added.h"
@@ -123,6 +130,7 @@
 #include "bitmaps/Bitmaps240x416.h" // 3.71"  b/w
 #include "bitmaps/Bitmaps400x300.h" // 4.2"  b/w
 #include "bitmaps/Bitmaps4g400x300.h" // 4.2"  b/w
+#include "bitmaps/Bitmaps4g800x480.h" // 7.5"  b/w
 
 #else
 
@@ -663,6 +671,9 @@ void drawBitmaps()
 #ifdef _GxBitmaps4g400x300_H_
   drawBitmaps4g400x300();
 #endif
+#ifdef _GxBitmaps4g800x480_H_
+  drawBitmaps4g800x480();
+#endif
 }
 
 #ifdef _GxBitmaps104x212_H_
@@ -822,14 +833,31 @@ void drawBitmaps400x300()
 #ifdef _GxBitmaps4g400x300_H_
 void drawBitmaps4g400x300()
 {
-  if ((display.epd2.panel == GxEPD2::GDEW042T2) || (display.epd2.panel == GxEPD2::GDEW0371W7) || (display.epd2.panel == GxEPD2::GDEW029T5) ||
-      (display.epd2.panel == GxEPD2::GDEW027W3) || (display.epd2.panel == GxEPD2::GDEW0213I5F))
+  if ((display.epd2.panel == GxEPD2::GDEW075T7) || (display.epd2.panel == GxEPD2::GDEW042T2) || (display.epd2.panel == GxEPD2::GDEW0371W7) ||
+      (display.epd2.panel == GxEPD2::GDEW029T5) || (display.epd2.panel == GxEPD2::GDEW027W3) || (display.epd2.panel == GxEPD2::GDEW0213I5F))
   {
     display.epd2.drawImage_4G(Bitmap4g400x300_1, 4, 0, 0, 400, 300, false, false, true);
     delay(2000);
     display.epd2.clearScreen();
-    delay(2000);
+    delay(1000);
     display.epd2.drawImagePart_4G(Bitmap4g400x300_1, 4, 100, 100, 400, 300, 0, 0, 300, 200, false, false, true);
+    delay(2000);
+  }
+}
+#endif
+
+#ifdef _GxBitmaps4g800x480_H_
+void drawBitmaps4g800x480()
+{
+  if (display.epd2.panel == GxEPD2::GDEW075T7)
+      
+  {
+    Serial.print("sizeof(Bitmap4g800x480_1) is "); Serial.println(sizeof(Bitmap4g800x480_1));
+    display.epd2.drawImage_4G(Bitmap4g800x480_1, 2, 0, 0, 800, 480, true, false, true);
+    delay(2000);
+    display.epd2.clearScreen();
+    delay(1000);
+    display.epd2.drawImagePart_4G(Bitmap4g800x480_1, 2, 100, 100, 800, 480, 0, 0, 700, 380, true, false, true);
     delay(2000);
   }
 }

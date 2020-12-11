@@ -409,6 +409,100 @@ class GxEPD2_BW_R : public Adafruit_GFX
       }
     }
 
+    void drawGreyPixmap(const uint8_t pixmap[], int16_t depth, int16_t x, int16_t y, int16_t w, int16_t h)
+    {
+      switch (depth)
+      {
+        case 1:
+          {
+            int16_t byteWidth = (w + 7) / 8; // Bitmap scanline pad = whole byte
+            uint8_t byte = 0;
+            for (int16_t j = 0; j < h; j++)
+            {
+              for (int16_t i = 0; i < w; i++ )
+              {
+                if (i & 7) byte <<= 1;
+                else
+                {
+#if defined(__AVR) || defined(ESP8266) || defined(ESP32)
+                  byte = pgm_read_byte(&pixmap[j * byteWidth + i / 8]);
+#else
+                  byte = pixmap[j * byteWidth + i / 8];
+#endif
+                }
+                uint16_t color = byte & 0x80 ? 0xFFFF : 0x0000;
+                drawPixel(x + i, y + j, color);
+              }
+            }
+          }
+          break;
+        case 2:
+          {
+            int16_t byteWidth = (w + 3) / 4; // Bitmap scanline pad = whole byte
+            uint8_t byte = 0;
+            for (int16_t j = 0; j < h; j++)
+            {
+              for (int16_t i = 0; i < w; i++ )
+              {
+                if (i & 3) byte <<= 2;
+                else
+                {
+#if defined(__AVR) || defined(ESP8266) || defined(ESP32)
+                  byte = pgm_read_byte(&pixmap[j * byteWidth + i / 4]);
+#else
+                  byte = pixmap[j * byteWidth + i / 4];
+#endif
+                }
+                uint16_t color = byte & 0x80 ? 0xFFFF : 0x0000;
+                drawPixel(x + i, y + j, color);
+              }
+            }
+          }
+          break;
+        case 4:
+          {
+            int16_t byteWidth = (w + 1) / 2; // Bitmap scanline pad = whole byte
+            uint8_t byte = 0;
+            for (int16_t j = 0; j < h; j++)
+            {
+              for (int16_t i = 0; i < w; i++ )
+              {
+                if (i & 1) byte <<= 4;
+                else
+                {
+#if defined(__AVR) || defined(ESP8266) || defined(ESP32)
+                  byte = pgm_read_byte(&pixmap[j * byteWidth + i / 2]);
+#else
+                  byte = pixmap[j * byteWidth + i / 2];
+#endif
+                }
+                uint16_t color = byte & 0x80 ? 0xFFFF : 0x0000;
+                drawPixel(x + i, y + j, color);
+              }
+            }
+          }
+          break;
+        case 8:
+          {
+            uint8_t byte = 0;
+            for (int16_t j = 0; j < h; j++)
+            {
+              for (int16_t i = 0; i < w; i++ )
+              {
+#if defined(__AVR) || defined(ESP8266) || defined(ESP32)
+                byte = pgm_read_byte(&pixmap[j * w + i]);
+#else
+                byte = pixmap[j * w + i];
+#endif
+                uint16_t color = byte & 0x80 ? 0xFFFF : 0x0000;
+                drawPixel(x + i, y + j, color);
+              }
+            }
+          }
+          break;
+      }
+    }
+
     //  Support for Bitmaps (Sprites) to Controller Buffer and to Screen
     void clearScreen(uint8_t value = 0xFF) // init controller memory and screen (default white)
     {

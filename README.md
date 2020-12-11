@@ -66,7 +66,10 @@
 - GDEW042T2      4.2" b/w
 - GDEW075T7      7.5" b/w 800x480
 
-### Version 1.0.1
+### Version 1.0.2
+- added method drawGreyPixmap() to buffered graphics
+- void drawGreyPixmap(const uint8_t pixmap[], int16_t depth, int16_t x, int16_t y, int16_t w, int16_t h);
+#### Version 1.0.1
 - added support for GDEW075T7
 - GDEW075T7 uses same wavetable as the other ones, no "official" (demo) yet
 - GDEW075T7 grey level behaviour is less good than e.g. on GDEW0371W7

@@ -66,7 +66,11 @@
 - GDEW042T2      4.2" b/w
 - GDEW075T7      7.5" b/w 800x480
 
-### Version 1.0.2
+### Version 1.0.3
+- renamed top level files and classes to allow co-existence of installed GxEPD2_4G and GxEPD2
+- fixed drawGreyPixmap() issues
+- additional fixes
+#### Version 1.0.2
 - added method drawGreyPixmap() to buffered graphics
 - void drawGreyPixmap(const uint8_t pixmap[], int16_t depth, int16_t x, int16_t y, int16_t w, int16_t h);
 #### Version 1.0.1

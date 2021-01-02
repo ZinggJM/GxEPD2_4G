@@ -9,16 +9,16 @@
 //
 // Library: https://github.com/ZinggJM/GxEPD2
 
-#ifndef _GxEPD2_GFX_H_
-#define _GxEPD2_GFX_H_
+#ifndef _GxEPD2_4G_GFX_H_
+#define _GxEPD2_4G_GFX_H_
 
 #include <Adafruit_GFX.h>
 #include <GxEPD2_EPD.h>
 
-class GxEPD2_GFX : public Adafruit_GFX
+class GxEPD2_4G_GFX : public Adafruit_GFX
 {
   public:
-    GxEPD2_GFX(GxEPD2_EPD& _epd2, int16_t w, int16_t h) : Adafruit_GFX(w, h), epd2(_epd2) {};
+    GxEPD2_4G_GFX(GxEPD2_EPD& _epd2, int16_t w, int16_t h) : Adafruit_GFX(w, h), epd2(_epd2) {};
     virtual uint16_t pages() = 0;
     virtual uint16_t pageHeight() = 0;
     virtual bool mirror(bool m) = 0;

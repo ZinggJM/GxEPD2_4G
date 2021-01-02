@@ -13,7 +13,7 @@
 #include "GxEPD2_420.h"
 
 GxEPD2_420::GxEPD2_420(int8_t cs, int8_t dc, int8_t rst, int8_t busy) :
-  GxEPD2_EPD(cs, dc, rst, busy, LOW, 10000000, WIDTH, HEIGHT, panel, hasColor, hasPartialUpdate, hasFastPartialUpdate)
+  GxEPD2_4G_EPD(cs, dc, rst, busy, LOW, 10000000, WIDTH, HEIGHT, panel, hasColor, hasPartialUpdate, hasFastPartialUpdate)
 {
   _refresh_mode = full_refresh;
 }
@@ -99,9 +99,10 @@ void GxEPD2_420::writeImage_4G(const uint8_t bitmap[], uint8_t bpp, int16_t x, i
   if (ppb == 0) return;
   if (_initial_write) writeScreenBuffer(); // initial full screen buffer clean
   delay(1); // yield() to avoid WDT on ESP8266 and ESP32
-  int16_t wb = (w + ppb - 1) / ppb; // width bytes, bitmaps are padded
-  x -= x % ppb; // byte boundary
-  w = wb * ppb; // byte boundary
+  int16_t wbc = (w + 7) / 8; // width bytes on controller
+  x -= x % 8; // byte boundary on controller
+  w = wbc * 8; // byte boundary on controller
+  int16_t wb = (w + ppb - 1) / ppb; // width bytes of bitmap, bitmaps are padded
   int16_t x1 = x < 0 ? 0 : x; // limit
   int16_t y1 = y < 0 ? 0 : y; // limit
   int16_t w1 = x + w < int16_t(WIDTH) ? w : int16_t(WIDTH) - x; // limit
@@ -264,8 +265,9 @@ void GxEPD2_420::writeImagePart_4G(const uint8_t bitmap[], uint8_t bpp, int16_t 
   x_part -= x_part % ppb; // byte boundary
   w = w_bitmap - x_part < w ? w_bitmap - x_part : w; // limit
   h = h_bitmap - y_part < h ? h_bitmap - y_part : h; // limit
-  x -= x % ppb; // byte boundary
-  w = ppb * ((w + ppb - 1) / ppb); // byte boundary, bitmaps are padded
+  int16_t wbc = (w + 7) / 8; // width bytes on controller
+  x -= x % 8; // byte boundary on controller
+  w = wbc * 8; // byte boundary on controller
   int16_t x1 = x < 0 ? 0 : x; // limit
   int16_t y1 = y < 0 ? 0 : y; // limit
   int16_t w1 = x + w < int16_t(WIDTH) ? w : int16_t(WIDTH) - x; // limit

@@ -9,29 +9,29 @@
 //
 // Library: https://github.com/ZinggJM/GxEPD2
 
-#ifndef _GxEPD2_EPD_H_
-#define _GxEPD2_EPD_H_
+#ifndef _GxEPD2_4G_EPD_H_
+#define _GxEPD2_4G_EPD_H_
 
 #include <Arduino.h>
 #include <SPI.h>
 
-#include <GxEPD2.h>
+#include <GxEPD2_4G.h>
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 
-class GxEPD2_EPD
+class GxEPD2_4G_EPD
 {
   public:
     // attributes
     const uint16_t WIDTH;
     const uint16_t HEIGHT;
-    const GxEPD2::Panel panel;
+    const GxEPD2_4G::Panel panel;
     const bool hasColor;
     const bool hasPartialUpdate;
     const bool hasFastPartialUpdate;
     // constructor
-    GxEPD2_EPD(int8_t cs, int8_t dc, int8_t rst, int8_t busy, int8_t busy_level, uint32_t busy_timeout,
-               uint16_t w, uint16_t h, GxEPD2::Panel p, bool c, bool pu, bool fpu);
+    GxEPD2_4G_EPD(int8_t cs, int8_t dc, int8_t rst, int8_t busy, int8_t busy_level, uint32_t busy_timeout,
+               uint16_t w, uint16_t h, GxEPD2_4G::Panel p, bool c, bool pu, bool fpu);
     virtual void init(uint32_t serial_diag_bitrate = 0); // serial_diag_bitrate = 0 : disabled
     virtual void init(uint32_t serial_diag_bitrate, bool initial, bool pulldown_rst_mode = false);
     //  Support for Bitmaps (Sprites) to Controller Buffer and to Screen

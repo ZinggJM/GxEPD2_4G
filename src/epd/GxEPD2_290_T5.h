@@ -13,15 +13,15 @@
 #ifndef _GxEPD2_290_T5_H_
 #define _GxEPD2_290_T5_H_
 
-#include "../GxEPD2_EPD.h"
+#include "../GxEPD2_4G_EPD.h"
 
-class GxEPD2_290_T5 : public GxEPD2_EPD
+class GxEPD2_290_T5 : public GxEPD2_4G_EPD
 {
   public:
     // attributes
     static const uint16_t WIDTH = 128;
     static const uint16_t HEIGHT = 296;
-    static const GxEPD2::Panel panel = GxEPD2::GDEW029T5;
+    static const GxEPD2_4G::Panel panel = GxEPD2_4G::GDEW029T5;
     static const bool hasColor = false;
     static const bool hasPartialUpdate = true;
     static const bool hasFastPartialUpdate = true; // set this false for test with OTP LUT (GDEW029I6F)

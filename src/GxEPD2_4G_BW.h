@@ -9,11 +9,11 @@
 //
 // Library: https://github.com/ZinggJM/GxEPD2
 
-#ifndef _GxEPD2_BW_H_
-#define _GxEPD2_BW_H_
+#ifndef _GxEPD2_4G_BW_H_
+#define _GxEPD2_4G_BW_H_
 
 #include <Adafruit_GFX.h>
-#include "GxEPD2_EPD.h"
+#include "GxEPD2_4G_EPD.h"
 #include "epd/GxEPD2_213_flex.h"
 #include "epd/GxEPD2_290_T5.h"
 #include "epd/GxEPD2_270.h"
@@ -21,33 +21,33 @@
 #include "epd/GxEPD2_420.h"
 #include "epd/GxEPD2_750_T7.h"
 
-#ifndef ENABLE_GxEPD2_GFX
+#ifndef ENABLE_GxEPD2_4G_GFX
 // default is off
-#define ENABLE_GxEPD2_GFX 0
+#define ENABLE_GxEPD2_4G_GFX 0
 #endif
 
-#if ENABLE_GxEPD2_GFX
-#include "GxEPD2_GFX.h"
+#if ENABLE_GxEPD2_4G_GFX
+#include "GxEPD2_4G_GFX.h"
 #endif
 
 template<typename GxEPD2_Type, const uint16_t page_height>
-#if ENABLE_GxEPD2_GFX
-class GxEPD2_BW_R : public GxEPD2_GFX
+#if ENABLE_GxEPD2_4G_GFX
+class GxEPD2_4G_BW_R : public GxEPD2_4G_GFX
 #else
-class GxEPD2_BW_R : public Adafruit_GFX
+class GxEPD2_4G_BW_R : public Adafruit_GFX
 #endif
 {
   public:
     GxEPD2_Type& epd2;
-#if ENABLE_GxEPD2_GFX
-    GxEPD2_BW_R(GxEPD2_Type& epd2_instance) : GxEPD2_GFX(epd2, GxEPD2_Type::WIDTH, GxEPD2_Type::HEIGHT), epd2(epd2_instance)
+#if ENABLE_GxEPD2_4G_GFX
+    GxEPD2_4G_BW_R(GxEPD2_Type& epd2_instance) : GxEPD2_4G_GFX(epd2, GxEPD2_Type::WIDTH, GxEPD2_Type::HEIGHT), epd2(epd2_instance)
 #else
-    GxEPD2_BW_R(GxEPD2_Type& epd2_instance) : Adafruit_GFX(GxEPD2_Type::WIDTH, GxEPD2_Type::HEIGHT), epd2(epd2_instance)
+    GxEPD2_4G_BW_R(GxEPD2_Type& epd2_instance) : Adafruit_GFX(GxEPD2_Type::WIDTH, GxEPD2_Type::HEIGHT), epd2(epd2_instance)
 #endif
     {
       _page_height = page_height;
       _pages = (HEIGHT / _page_height) + ((HEIGHT % _page_height) > 0);
-      _reverse = (epd2_instance.panel == GxEPD2::GDE0213B1);
+      _reverse = (epd2_instance.panel == GxEPD2_4G::GDE0213B1);
       _using_partial_mode = false;
       _current_page = 0;
       setFullWindow();
@@ -660,12 +660,12 @@ class GxEPD2_BW_R : public Adafruit_GFX
 };
 
 template<typename GxEPD2_Type, const uint16_t page_height>
-class GxEPD2_BW : public GxEPD2_BW_R<GxEPD2_Type, page_height>
+class GxEPD2_4G_BW : public GxEPD2_4G_BW_R<GxEPD2_Type, page_height>
 {
   private:
     GxEPD2_Type epd2_copy;
   public:
-    GxEPD2_BW(GxEPD2_Type epd2_instance) : GxEPD2_BW_R<GxEPD2_Type, page_height>(epd2_copy), epd2_copy(epd2_instance)
+    GxEPD2_4G_BW(GxEPD2_Type epd2_instance) : GxEPD2_4G_BW_R<GxEPD2_Type, page_height>(epd2_copy), epd2_copy(epd2_instance)
     {
     }
 };

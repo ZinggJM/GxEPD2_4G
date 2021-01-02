@@ -13,15 +13,15 @@
 #ifndef _GxEPD2_213_flex_H_
 #define _GxEPD2_213_flex_H_
 
-#include "../GxEPD2_EPD.h"
+#include "../GxEPD2_4G_EPD.h"
 
-class GxEPD2_213_flex : public GxEPD2_EPD
+class GxEPD2_213_flex : public GxEPD2_4G_EPD
 {
   public:
     // attributes
     static const uint16_t WIDTH = 104;
     static const uint16_t HEIGHT = 212;
-    static const GxEPD2::Panel panel = GxEPD2::GDEW0213I5F;
+    static const GxEPD2_4G::Panel panel = GxEPD2_4G::GDEW0213I5F;
     static const bool hasColor = false;
     static const bool hasPartialUpdate = true;
     static const bool hasFastPartialUpdate = true;

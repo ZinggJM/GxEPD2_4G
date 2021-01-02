@@ -9,7 +9,7 @@
 //
 // Library: https://github.com/ZinggJM/GxEPD2
 
-#include "GxEPD2_EPD.h"
+#include "GxEPD2_4G_EPD.h"
 
 #if defined(ESP8266) || defined(ESP32)
 #include <pgmspace.h>
@@ -17,8 +17,8 @@
 #include <avr/pgmspace.h>
 #endif
 
-GxEPD2_EPD::GxEPD2_EPD(int8_t cs, int8_t dc, int8_t rst, int8_t busy, int8_t busy_level, uint32_t busy_timeout,
-                       uint16_t w, uint16_t h, GxEPD2::Panel p, bool c, bool pu, bool fpu) :
+GxEPD2_4G_EPD::GxEPD2_4G_EPD(int8_t cs, int8_t dc, int8_t rst, int8_t busy, int8_t busy_level, uint32_t busy_timeout,
+                       uint16_t w, uint16_t h, GxEPD2_4G::Panel p, bool c, bool pu, bool fpu) :
   WIDTH(w), HEIGHT(h), panel(p), hasColor(c), hasPartialUpdate(pu), hasFastPartialUpdate(fpu),
   _cs(cs), _dc(dc), _rst(rst), _busy(busy), _busy_level(busy_level), _busy_timeout(busy_timeout), _diag_enabled(false),
   _spi_settings(4000000, MSBFIRST, SPI_MODE0)
@@ -30,12 +30,12 @@ GxEPD2_EPD::GxEPD2_EPD(int8_t cs, int8_t dc, int8_t rst, int8_t busy, int8_t bus
   _hibernating = false;
 }
 
-void GxEPD2_EPD::init(uint32_t serial_diag_bitrate)
+void GxEPD2_4G_EPD::init(uint32_t serial_diag_bitrate)
 {
   init(serial_diag_bitrate, true, false);
 }
 
-void GxEPD2_EPD::init(uint32_t serial_diag_bitrate, bool initial, bool pulldown_rst_mode)
+void GxEPD2_4G_EPD::init(uint32_t serial_diag_bitrate, bool initial, bool pulldown_rst_mode)
 {
   _initial_write = initial;
   _initial_refresh = initial;
@@ -66,7 +66,7 @@ void GxEPD2_EPD::init(uint32_t serial_diag_bitrate, bool initial, bool pulldown_
   SPI.begin();
 }
 
-void GxEPD2_EPD::_reset()
+void GxEPD2_4G_EPD::_reset()
 {
   if (_rst >= 0)
   {
@@ -92,7 +92,7 @@ void GxEPD2_EPD::_reset()
   }
 }
 
-void GxEPD2_EPD::_waitWhileBusy(const char* comment, uint16_t busy_time)
+void GxEPD2_4G_EPD::_waitWhileBusy(const char* comment, uint16_t busy_time)
 {
   if (_busy >= 0)
   {
@@ -125,7 +125,7 @@ void GxEPD2_EPD::_waitWhileBusy(const char* comment, uint16_t busy_time)
   else delay(busy_time);
 }
 
-void GxEPD2_EPD::_writeCommand(uint8_t c)
+void GxEPD2_4G_EPD::_writeCommand(uint8_t c)
 {
   SPI.beginTransaction(_spi_settings);
   if (_dc >= 0) digitalWrite(_dc, LOW);
@@ -136,7 +136,7 @@ void GxEPD2_EPD::_writeCommand(uint8_t c)
   SPI.endTransaction();
 }
 
-void GxEPD2_EPD::_writeData(uint8_t d)
+void GxEPD2_4G_EPD::_writeData(uint8_t d)
 {
   SPI.beginTransaction(_spi_settings);
   if (_cs >= 0) digitalWrite(_cs, LOW);
@@ -145,7 +145,7 @@ void GxEPD2_EPD::_writeData(uint8_t d)
   SPI.endTransaction();
 }
 
-void GxEPD2_EPD::_writeData(const uint8_t* data, uint16_t n)
+void GxEPD2_4G_EPD::_writeData(const uint8_t* data, uint16_t n)
 {
   SPI.beginTransaction(_spi_settings);
   if (_cs >= 0) digitalWrite(_cs, LOW);
@@ -157,7 +157,7 @@ void GxEPD2_EPD::_writeData(const uint8_t* data, uint16_t n)
   SPI.endTransaction();
 }
 
-void GxEPD2_EPD::_writeDataPGM(const uint8_t* data, uint16_t n, int16_t fill_with_zeroes)
+void GxEPD2_4G_EPD::_writeDataPGM(const uint8_t* data, uint16_t n, int16_t fill_with_zeroes)
 {
   SPI.beginTransaction(_spi_settings);
   if (_cs >= 0) digitalWrite(_cs, LOW);
@@ -174,7 +174,7 @@ void GxEPD2_EPD::_writeDataPGM(const uint8_t* data, uint16_t n, int16_t fill_wit
   SPI.endTransaction();
 }
 
-void GxEPD2_EPD::_writeDataPGM_sCS(const uint8_t* data, uint16_t n, int16_t fill_with_zeroes)
+void GxEPD2_4G_EPD::_writeDataPGM_sCS(const uint8_t* data, uint16_t n, int16_t fill_with_zeroes)
 {
   SPI.beginTransaction(_spi_settings);
   for (uint8_t i = 0; i < n; i++)
@@ -193,7 +193,7 @@ void GxEPD2_EPD::_writeDataPGM_sCS(const uint8_t* data, uint16_t n, int16_t fill
   SPI.endTransaction();
 }
 
-void GxEPD2_EPD::_writeCommandData(const uint8_t* pCommandData, uint8_t datalen)
+void GxEPD2_4G_EPD::_writeCommandData(const uint8_t* pCommandData, uint8_t datalen)
 {
   SPI.beginTransaction(_spi_settings);
   if (_dc >= 0) digitalWrite(_dc, LOW);
@@ -208,7 +208,7 @@ void GxEPD2_EPD::_writeCommandData(const uint8_t* pCommandData, uint8_t datalen)
   SPI.endTransaction();
 }
 
-void GxEPD2_EPD::_writeCommandDataPGM(const uint8_t* pCommandData, uint8_t datalen)
+void GxEPD2_4G_EPD::_writeCommandDataPGM(const uint8_t* pCommandData, uint8_t datalen)
 {
   SPI.beginTransaction(_spi_settings);
   if (_dc >= 0) digitalWrite(_dc, LOW);

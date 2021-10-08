@@ -61,12 +61,21 @@
 ### Supported SPI e-paper panels from Good Display:
 - GDEW0213I5F    2.13" b/w flexible
 - GDEW029T5      2.9" b/w
+- GDEW029T5D     2.9" b/w
+- GDEW029I6FD    2.9" b/w flexible
+- GDEM029T94     2.9" b/w
 - GDEW027W3      2.7" b/w
 - GDEW0371W7     3.7" b/w
 - GDEW042T2      4.2" b/w
 - GDEW075T7      7.5" b/w 800x480
 
-### Version 1.0.3
+### Version 1.0.4
+- added support for GDEW029T5D
+- added support for GDEW029I6FD
+- added support for GDEM029T94
+- GDEM029T94 has no partial refresh with grey refresh mode
+- improved handling of switching between refresh modes
+#### Version 1.0.3
 - renamed top level files and classes to allow co-existence of installed GxEPD2_4G and GxEPD2
 - fixed drawGreyPixmap() issues
 - additional fixes

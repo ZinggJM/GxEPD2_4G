@@ -73,7 +73,8 @@ void GxEPD2_270::_writeImage(uint8_t command, const uint8_t bitmap[], int16_t x,
   w1 -= dx;
   h1 -= dy;
   if ((w1 <= 0) || (h1 <= 0)) return;
-  if (_refresh_mode == full_refresh) _Init_Part();
+  if (_refresh_mode == grey_refresh) _Force_Init_Full();
+  else if (_refresh_mode == full_refresh) _Init_Part();
   _setPartialRamArea(command, x1, y1, w1, h1);
   for (int16_t i = 0; i < h1; i++)
   {
@@ -346,7 +347,8 @@ void GxEPD2_270::_writeImagePart(uint8_t command, const uint8_t bitmap[], int16_
   w1 -= dx;
   h1 -= dy;
   if ((w1 <= 0) || (h1 <= 0)) return;
-  if (_refresh_mode == full_refresh) _Init_Part();
+  if (_refresh_mode == grey_refresh) _Force_Init_Full();
+  else if (_refresh_mode == full_refresh) _Init_Part();
   _setPartialRamArea(command, x1, y1, w1, h1);
   for (int16_t i = 0; i < h1; i++)
   {
@@ -457,6 +459,7 @@ void GxEPD2_270::refresh(bool partial_update_mode)
   if (partial_update_mode) refresh(0, 0, WIDTH, HEIGHT);
   else
   {
+    if (_refresh_mode == forced_full_refresh) _refresh_mode = full_refresh;
     if (_refresh_mode == fast_refresh) _Init_Full();
     if (_refresh_mode == grey_refresh) _Update_4G();
     else _Update_Full();
@@ -467,6 +470,7 @@ void GxEPD2_270::refresh(bool partial_update_mode)
 void GxEPD2_270::refresh(int16_t x, int16_t y, int16_t w, int16_t h)
 {
   if (_initial_refresh) return refresh(false); // initial update needs be full update
+  if (_refresh_mode == forced_full_refresh) return refresh(false);
   x -= x % 8; // byte boundary
   w -= x % 8; // byte boundary
   int16_t x1 = x < 0 ? 0 : x; // limit
@@ -746,6 +750,12 @@ const uint8_t GxEPD2_270::lut_24_bb_partial[] PROGMEM =
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
+
+void GxEPD2_270::_Force_Init_Full()
+{
+  _Init_Full();
+  _refresh_mode = forced_full_refresh;
+}
 
 void GxEPD2_270::_Init_Full()
 {

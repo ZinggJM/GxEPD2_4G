@@ -60,6 +60,9 @@
 // select one and adapt to your mapping, can use full buffer size (full HEIGHT)
 //GxEPD2_4G_4G<GxEPD2_213_flex, GxEPD2_213_flex::HEIGHT> display(GxEPD2_213_flex(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4)); // GDEW0213I5F
 //GxEPD2_4G_4G<GxEPD2_290_T5, GxEPD2_290_T5::HEIGHT> display(GxEPD2_290_T5(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4)); // GDEW029T5
+//GxEPD2_4G_4G<GxEPD2_290_T5D, GxEPD2_290_T5D::HEIGHT> display(GxEPD2_290_T5D(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4)); // GDEW029T5D
+//GxEPD2_4G_4G<GxEPD2_290_I6FD, GxEPD2_290_I6FD::HEIGHT> display(GxEPD2_290_I6FD(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4)); // GDEW029I6FD
+//GxEPD2_4G_4G<GxEPD2_290_T94, GxEPD2_290_T94::HEIGHT> display(GxEPD2_290_T94(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4)); // GDEW029T94
 //GxEPD2_4G_4G<GxEPD2_270, GxEPD2_270::HEIGHT> display(GxEPD2_270(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4));
 //GxEPD2_4G_4G<GxEPD2_371, GxEPD2_371::HEIGHT> display(GxEPD2_371(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4));
 //GxEPD2_4G_4G<GxEPD2_420, GxEPD2_420::HEIGHT> display(GxEPD2_420(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4));
@@ -69,6 +72,9 @@
 // select one , can use full buffer size (full HEIGHT)
 //GxEPD2_4G_4G<GxEPD2_213_flex, GxEPD2_213_flex::HEIGHT> display(GxEPD2_213_flex(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5)); // GDEW0213I5F
 //GxEPD2_4G_4G<GxEPD2_290_T5, GxEPD2_290_T5::HEIGHT> display(GxEPD2_290_T5(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5)); // GDEW029T5
+//GxEPD2_4G_4G<GxEPD2_290_T5D, GxEPD2_290_T5D::HEIGHT> display(GxEPD2_290_T5D(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5)); // GDEW029T5D
+//GxEPD2_4G_4G<GxEPD2_290_I6FD, GxEPD2_290_I6FD::HEIGHT> display(GxEPD2_290_I6FD(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5)); // GDEW029I6FD
+//GxEPD2_4G_4G<GxEPD2_290_T94, GxEPD2_290_T94::HEIGHT> display(GxEPD2_290_T94(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5)); // GDEW029T94
 //GxEPD2_4G_4G<GxEPD2_270, GxEPD2_270::HEIGHT> display(GxEPD2_270(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5));
 //GxEPD2_4G_4G<GxEPD2_371, GxEPD2_371::HEIGHT> display(GxEPD2_371(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5));
 //GxEPD2_4G_4G<GxEPD2_420, GxEPD2_420::HEIGHT> display(GxEPD2_420(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5));
@@ -78,6 +84,9 @@
 // select one , can use full buffer size (full HEIGHT)
 //GxEPD2_4G_4G<GxEPD2_213_flex, GxEPD2_213_flex::HEIGHT> display(GxEPD2_213_flex(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16)); // GDEW0213I5F
 //GxEPD2_4G_4G<GxEPD2_290_T5, GxEPD2_290_T5::HEIGHT> display(GxEPD2_290_T5(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16)); // GDEW029T5
+//GxEPD2_4G_4G<GxEPD2_290_T5D, GxEPD2_290_T5D::HEIGHT> display(GxEPD2_290_T5D(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16)); // GDEW029T5D
+//GxEPD2_4G_4G<GxEPD2_290_I6FD, GxEPD2_290_I6FD::HEIGHT> display(GxEPD2_290_I6FD(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16)); // GDEW029I6FD
+//GxEPD2_4G_4G<GxEPD2_290_T94, GxEPD2_290_T94::HEIGHT> display(GxEPD2_290_T94(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16)); // GDEW029T94
 //GxEPD2_4G_4G<GxEPD2_270, GxEPD2_270::HEIGHT> display(GxEPD2_270(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16));
 //GxEPD2_4G_4G<GxEPD2_371, GxEPD2_371::HEIGHT> display(GxEPD2_371(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16));
 //GxEPD2_4G_4G<GxEPD2_420, GxEPD2_420::HEIGHT> display(GxEPD2_420(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16));
@@ -88,6 +97,9 @@
 // select one and adapt to your mapping, can use full buffer size (full HEIGHT)
 //GxEPD2_4G_4G<GxEPD2_213_flex, GxEPD2_213_flex::HEIGHT> display(GxEPD2_213_flex(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4)); // GDEW0213I5F
 //GxEPD2_4G_4G<GxEPD2_290_T5, GxEPD2_290_T5::HEIGHT> display(GxEPD2_290_T5(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4)); // GDEW029T5
+//GxEPD2_4G_4G<GxEPD2_290_T5D, GxEPD2_290_T5D::HEIGHT> display(GxEPD2_290_T5D(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4)); // GDEW029T5D
+//GxEPD2_4G_4G<GxEPD2_290_I6FD, GxEPD2_290_I6FD::HEIGHT> display(GxEPD2_290_I6FD(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4)); // GDEW029I6FD
+//GxEPD2_4G_4G<GxEPD2_290_T94, GxEPD2_290_T94::HEIGHT> display(GxEPD2_290_T94(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4)); // GDEW029T94
 //GxEPD2_4G_4G<GxEPD2_270, GxEPD2_270::HEIGHT> display(GxEPD2_270(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4));
 //GxEPD2_4G_4G<GxEPD2_371, GxEPD2_371::HEIGHT> display(GxEPD2_371(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4));
 //GxEPD2_4G_4G<GxEPD2_420, GxEPD2_420::HEIGHT> display(GxEPD2_420(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4));
@@ -101,6 +113,9 @@
 // select one and adapt to your mapping
 //GxEPD2_4G_4G<GxEPD2_213_flex, MAX_HEIGHT(GxEPD2_213_flex)> display(GxEPD2_213_flex(/*CS=4*/ SS, /*DC=*/ 3, /*RST=*/ 2, /*BUSY=*/ 1)); // GDEW0213I5F
 //GxEPD2_4G_4G<GxEPD2_290_T5, MAX_HEIGHT(GxEPD2_290_T5)> display(GxEPD2_290_T5(/*CS=4*/ SS, /*DC=*/ 3, /*RST=*/ 2, /*BUSY=*/ 1)); // GDEW029T5
+//GxEPD2_4G_4G<GxEPD2_290_T5D, MAX_HEIGHT(GxEPD2_290_T5D)> display(GxEPD2_290_T5D(/*CS=4*/ SS, /*DC=*/ 3, /*RST=*/ 2, /*BUSY=*/ 1)); // GDEW029T5D
+//GxEPD2_4G_4G<GxEPD2_290_I6FD, MAX_HEIGHT(GxEPD2_290_I6FD)> display(GxEPD2_290_I6FD(/*CS=4*/ SS, /*DC=*/ 3, /*RST=*/ 2, /*BUSY=*/ 1)); // GDEW029I6FD
+//GxEPD2_4G_4G<GxEPD2_290_T94, MAX_HEIGHT(GxEPD2_290_T94)> display(GxEPD2_290_T94(/*CS=4*/ SS, /*DC=*/ 3, /*RST=*/ 2, /*BUSY=*/ 1)); // GDEW029T94
 //GxEPD2_4G_4G<GxEPD2_270, MAX_HEIGHT(GxEPD2_270)> display(GxEPD2_270(/*CS=4*/ SS, /*DC=*/ 3, /*RST=*/ 2, /*BUSY=*/ 1));
 //GxEPD2_4G_4G<GxEPD2_371, MAX_HEIGHT(GxEPD2_371)> display(GxEPD2_371(/*CS=4*/ SS, /*DC=*/ 3, /*RST=*/ 2, /*BUSY=*/ 1));
 //GxEPD2_4G_4G<GxEPD2_420, MAX_HEIGHT(GxEPD2_420)> display(GxEPD2_420(/*CS=4*/ SS, /*DC=*/ 3, /*RST=*/ 2, /*BUSY=*/ 1));
@@ -113,6 +128,9 @@
 // select one and adapt to your mapping
 //GxEPD2_4G_4G<GxEPD2_213_flex, MAX_HEIGHT(GxEPD2_213_flex)> display(GxEPD2_213_flex(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7)); // GDEW0213I5F
 //GxEPD2_4G_4G<GxEPD2_290_T5, MAX_HEIGHT(GxEPD2_290_T5)> display(GxEPD2_290_T5(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7)); // GDEW029T5
+//GxEPD2_4G_4G<GxEPD2_290_T5D, MAX_HEIGHT(GxEPD2_290_T5D)> display(GxEPD2_290_T5D(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7)); // GDEW029T5D
+//GxEPD2_4G_4G<GxEPD2_290_I6FD, MAX_HEIGHT(GxEPD2_290_I6FD)> display(GxEPD2_290_I6FD(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7)); // GDEW029I6FD
+//GxEPD2_4G_4G<GxEPD2_290_T94, MAX_HEIGHT(GxEPD2_290_T94)> display(GxEPD2_290_T94(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7)); // GDEW029T94
 //GxEPD2_4G_4G<GxEPD2_270, MAX_HEIGHT(GxEPD2_270)> display(GxEPD2_270(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7));
 //GxEPD2_4G_4G<GxEPD2_371, MAX_HEIGHT(GxEPD2_371)> display(GxEPD2_371(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7));
 //GxEPD2_4G_4G<GxEPD2_420, MAX_HEIGHT(GxEPD2_420)> display(GxEPD2_420(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7));
@@ -126,6 +144,9 @@
 // select one and adapt to your mapping
 //GxEPD2_4G_4G<GxEPD2_213_flex, MAX_HEIGHT(GxEPD2_213_flex)> display(GxEPD2_213_flex(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDEW0213I5F
 //GxEPD2_4G_4G<GxEPD2_290_T5, MAX_HEIGHT(GxEPD2_290_T5)> display(GxEPD2_290_T5(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDEW029T5
+//GxEPD2_4G_4G<GxEPD2_290_T5D, MAX_HEIGHT(GxEPD2_290_T5D)> display(GxEPD2_290_T5D(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDEW029T5D
+//GxEPD2_4G_4G<GxEPD2_290_I6FD, MAX_HEIGHT(GxEPD2_290_I6FD)> display(GxEPD2_290_I6FD(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDEW029I6FD
+//GxEPD2_4G_4G<GxEPD2_290_T94, MAX_HEIGHT(GxEPD2_290_T94)> display(GxEPD2_290_T94(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDEW029T94
 //GxEPD2_4G_4G<GxEPD2_270, MAX_HEIGHT(GxEPD2_270)> display(GxEPD2_270(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
 //GxEPD2_4G_4G<GxEPD2_371, MAX_HEIGHT(GxEPD2_371)> display(GxEPD2_371(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
 //GxEPD2_4G_4G<GxEPD2_420, MAX_HEIGHT(GxEPD2_420)> display(GxEPD2_420(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
@@ -146,6 +167,7 @@
 //#include "bitmaps/Bitmaps4g104x212.h" // 2.13" b/w flexible GDEW0213I5F
 //#include "bitmaps/Bitmaps4g128x296.h" // 2.9"  b/w
 //#include "bitmaps/Bitmaps4g176x264.h" // 2.7"  b/w
+#include "bitmaps/Bitmaps4g_I6FD_128x296.h"
 #include "bitmaps/Bitmaps4g400x300.h" // 4.2"  b/w
 #include "bitmaps/Bitmaps4g800x480.h" // 7.5"  b/w
 // tests
@@ -173,6 +195,7 @@ void setup()
   // first update should be full refresh
   helloWorld();
   delay(1000);
+  //display.epd2.drawGreyLevels(); return;
   helloFourGreyLevels();
   delay(1000);
   //return;
@@ -286,6 +309,7 @@ void helloFourGreyLevels()
   //Serial.println("helloFourGreyLevels");
   const char fourgrey[] = "four grey levels";
   const char spm[] = "slow partial mode";
+  const char npm[] = "no partial mode";
   display.setPartialWindow(0, 0, display.width(), display.height());
   display.setRotation(1);
   display.setFont(&FreeMonoBold9pt7b);
@@ -315,7 +339,7 @@ void helloFourGreyLevels()
     display.print(fourgrey);
     display.setTextColor(GxEPD_LIGHTGREY);
     display.setCursor(umx, umy);
-    display.print(spm);
+    display.print(display.epd2.hasPartialUpdate ? spm : npm);
   }
   while (display.nextPage());
   //Serial.println("helloFourGreyLevels done");
@@ -506,6 +530,7 @@ void deepSleepTest()
 
 void showGreyLevels()
 {
+  display.clearScreen();
   display.setRotation(0);
   uint16_t h = display.height() / 4;
   display.firstPage();
@@ -693,6 +718,9 @@ void drawBitmaps()
 #ifdef _GxBitmaps4g128x296_H_
   drawBitmaps4g128x296();
 #endif
+#ifdef _GxBitmaps4g_I6FD_128x296_H_
+  drawBitmaps4g_I6FD_128x296();
+#endif
 #ifdef _GxBitmaps4g176x264_H_
   drawBitmaps4g176x264();
 #endif
@@ -873,7 +901,8 @@ void drawBitmaps400x300()
 void drawBitmaps4g104x212()
 {
   if ((display.epd2.panel == GxEPD2_4G::GDEW075T7) || (display.epd2.panel == GxEPD2_4G::GDEW042T2) || (display.epd2.panel == GxEPD2_4G::GDEW0371W7) ||
-      (display.epd2.panel == GxEPD2_4G::GDEW029T5) || (display.epd2.panel == GxEPD2_4G::GDEW027W3) || (display.epd2.panel == GxEPD2_4G::GDEW0213I5F))
+      (display.epd2.panel == GxEPD2_4G::GDEW029T5) || (display.epd2.panel == GxEPD2_4G::GDEW029T5D) || (display.epd2.panel == GxEPD2_4G::GDEW029I6FD) ||
+      (display.epd2.panel == GxEPD2_4G::GDEM029T94) || (display.epd2.panel == GxEPD2_4G::GDEW027W3) || (display.epd2.panel == GxEPD2_4G::GDEW0213I5F))
   {
     display.setFullWindow();
     display.firstPage();
@@ -894,7 +923,8 @@ void drawBitmaps4g104x212()
 void drawBitmaps4g128x296()
 {
   if ((display.epd2.panel == GxEPD2_4G::GDEW075T7) || (display.epd2.panel == GxEPD2_4G::GDEW042T2) || (display.epd2.panel == GxEPD2_4G::GDEW0371W7) ||
-      (display.epd2.panel == GxEPD2_4G::GDEW029T5) || (display.epd2.panel == GxEPD2_4G::GDEW027W3) || (display.epd2.panel == GxEPD2_4G::GDEW0213I5F))
+      (display.epd2.panel == GxEPD2_4G::GDEW029T5) || (display.epd2.panel == GxEPD2_4G::GDEW029T5D) || (display.epd2.panel == GxEPD2_4G::GDEW029I6FD) ||
+      (display.epd2.panel == GxEPD2_4G::GDEM029T94) || (display.epd2.panel == GxEPD2_4G::GDEW027W3) || (display.epd2.panel == GxEPD2_4G::GDEW0213I5F))
   {
     display.setFullWindow();
     display.firstPage();
@@ -911,11 +941,47 @@ void drawBitmaps4g128x296()
 }
 #endif
 
+#ifdef _GxBitmaps4g_I6FD_128x296_H_
+void drawBitmaps4g_I6FD_128x296()
+{
+  if ((display.epd2.WIDTH >= 128) && (display.epd2.HEIGHT >= 296))
+  {
+    display.epd2.drawImage_4G(Bitmap4g128x296_I6FD, 4, 0, 0, 128, 296, false, false, true); delay(2000);
+    display.drawImage(Bitmap128x296_I6FD_1, 0, 0, 128, 296, false, false, true); delay(2000);
+    display.drawImage(Bitmap128x296_I6FD_2, 0, 0, 128, 296, false, false, true); delay(2000);
+    display.drawImage(Bitmap128x296_run1, 0, 0, 128, 296, false, false, true); delay(500);
+    display.drawImage(Bitmap128x296_run2, 0, 0, 128, 296, false, false, true); delay(500);
+    display.drawImage(Bitmap128x296_run3, 0, 0, 128, 296, false, false, true); delay(500);
+    display.drawImage(Bitmap128x296_run4, 0, 0, 128, 296, false, false, true); delay(500);
+    display.drawImage(Bitmap128x296_run5, 0, 0, 128, 296, false, false, true); delay(500);
+    display.drawImage(Bitmap128x296_run6, 0, 0, 128, 296, false, false, true); delay(2000);
+    display.drawImage(Bitmap80x64_man1, 24, 0, 80, 64, false, false, true); delay(2000);
+    display.drawImage(Bitmap80x64_man2, 24, 0, 80, 64, false, false, true); delay(2000);
+    display.drawImage(Bitmap80x64_man3, 24, 0, 80, 64, false, false, true); delay(2000);
+    display.drawImage(Bitmap80x64_man4, 24, 0, 80, 64, false, false, true); delay(2000);
+    display.drawImage(Bitmap80x64_man5, 24, 0, 80, 64, false, false, true); delay(2000);
+    display.drawImage(Bitmap24x80_gooddisplay, 128 - 24, (296 - 80) / 2, 24, 80, false, false, true); delay(2000);
+    display.drawImage(Bitmap80x24_gooddisplay1, 128 - 80, 296 - 24, 80, 24, false, false, true); delay(2000);
+    display.drawImage(Bitmap80x24_gooddisplay2, 128 - 80, 296 - 24, 80, 24, false, false, true); delay(2000);
+    display.drawImage(Bitmap32x64_num1, 0, 120, 32, 64, false, false, true); delay(500);
+    display.drawImage(Bitmap32x64_num2, 0, 120, 32, 64, false, false, true); delay(500);
+    display.drawImage(Bitmap32x64_num3, 0, 120, 32, 64, false, false, true); delay(500);
+    display.drawImage(Bitmap32x64_num4, 0, 120, 32, 64, false, false, true); delay(500);
+    display.drawImage(Bitmap32x64_num5, 0, 120, 32, 64, false, false, true); delay(500);
+    display.drawImage(Bitmap32x64_num6, 0, 120, 32, 64, false, false, true); delay(500);
+    display.drawImage(Bitmap32x64_num7, 0, 120, 32, 64, false, false, true); delay(500);
+    display.drawImage(Bitmap32x64_num8, 0, 120, 32, 64, false, false, true); delay(500);
+    display.drawImage(Bitmap32x64_num9, 0, 120, 32, 64, false, false, true); delay(500);
+  }
+}
+#endif
+
 #ifdef _GxBitmaps4g176x264_H_
 void drawBitmaps4g176x264()
 {
   if ((display.epd2.panel == GxEPD2_4G::GDEW075T7) || (display.epd2.panel == GxEPD2_4G::GDEW042T2) || (display.epd2.panel == GxEPD2_4G::GDEW0371W7) ||
-      (display.epd2.panel == GxEPD2_4G::GDEW029T5) || (display.epd2.panel == GxEPD2_4G::GDEW027W3) || (display.epd2.panel == GxEPD2_4G::GDEW0213I5F))
+      (display.epd2.panel == GxEPD2_4G::GDEW029T5) || (display.epd2.panel == GxEPD2_4G::GDEW029T5D) || (display.epd2.panel == GxEPD2_4G::GDEW029I6FD) ||
+      (display.epd2.panel == GxEPD2_4G::GDEM029T94) || (display.epd2.panel == GxEPD2_4G::GDEW027W3) || (display.epd2.panel == GxEPD2_4G::GDEW0213I5F))
   {
     display.setFullWindow();
     display.firstPage();
@@ -936,7 +1002,8 @@ void drawBitmaps4g176x264()
 void drawBitmaps4g400x300()
 {
   if ((display.epd2.panel == GxEPD2_4G::GDEW075T7) || (display.epd2.panel == GxEPD2_4G::GDEW042T2) || (display.epd2.panel == GxEPD2_4G::GDEW0371W7) ||
-      (display.epd2.panel == GxEPD2_4G::GDEW029T5) || (display.epd2.panel == GxEPD2_4G::GDEW027W3) || (display.epd2.panel == GxEPD2_4G::GDEW0213I5F))
+      (display.epd2.panel == GxEPD2_4G::GDEW029T5) || (display.epd2.panel == GxEPD2_4G::GDEW029T5D) || (display.epd2.panel == GxEPD2_4G::GDEW029I6FD) ||
+      (display.epd2.panel == GxEPD2_4G::GDEM029T94) || (display.epd2.panel == GxEPD2_4G::GDEW027W3) || (display.epd2.panel == GxEPD2_4G::GDEW0213I5F))
   {
     display.setFullWindow();
     display.setFont(&FreeMonoBold9pt7b);

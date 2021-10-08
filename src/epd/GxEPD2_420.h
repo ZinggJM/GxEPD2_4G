@@ -69,6 +69,7 @@ class GxEPD2_420 : public GxEPD2_4G_EPD
     void _PowerOn();
     void _PowerOff();
     void _InitDisplay();
+    void _Force_Init_Full();
     void _Init_Full();
     void _Init_4G();
     void _Init_Part();
@@ -76,7 +77,7 @@ class GxEPD2_420 : public GxEPD2_4G_EPD
     void _Update_4G();
     void _Update_Part();
   private:
-    enum {full_refresh, grey_refresh, fast_refresh} _refresh_mode;
+    enum {full_refresh, grey_refresh, fast_refresh, forced_full_refresh} _refresh_mode;
     static const unsigned char lut_20_vcom0_full[];
     static const unsigned char lut_21_ww_full[];
     static const unsigned char lut_22_bw_full[];

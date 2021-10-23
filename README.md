@@ -25,6 +25,10 @@
 - do not forget to connect GND
 - the actual Waveshare display boards now have level converters and series regulator, safe for 5V
 - use 4k7 pull-down on SS for ESP8266 for boards with level converters
+- note that 7.5" e-paper displays don't work reliable if fed from 3.3V Arduino pin
+- note that Waveshare bords with "clever" reset circuit may need shortened reset pulse
+- use `init(115200, true, 2, false)` for Waveshare boards with "clever" reset circuit
+- note that Waveshare bords with "clever" reset circuit need 1k pull-up on RST on ESP8266, or different pin
 
 ### Paged Drawing, Picture Loop
  - This library uses paged drawing to limit RAM use and cope with missing single pixel update support
@@ -69,7 +73,10 @@
 - GDEW042T2      4.2" b/w
 - GDEW075T7      7.5" b/w 800x480
 
-### Version 1.0.4
+### Version 1.0.5
+- fix for STM32 official package pin number range (int16_t)
+- fix for refresh(int16_t x, int16_t y, int16_t w, int16_t h) methods screen intersection
+#### Version 1.0.4
 - added support for GDEW029T5D
 - added support for GDEW029I6FD
 - added support for GDEM029T94

@@ -30,7 +30,7 @@ class GxEPD2_4G_EPD
     const bool hasPartialUpdate;
     const bool hasFastPartialUpdate;
     // constructor
-    GxEPD2_4G_EPD(int8_t cs, int8_t dc, int8_t rst, int8_t busy, int8_t busy_level, uint32_t busy_timeout,
+    GxEPD2_4G_EPD(int16_t cs, int16_t dc, int16_t rst, int16_t busy, int16_t busy_level, uint32_t busy_timeout,
                uint16_t w, uint16_t h, GxEPD2_4G::Panel p, bool c, bool pu, bool fpu);
     virtual void init(uint32_t serial_diag_bitrate = 0); // serial_diag_bitrate = 0 : disabled
     virtual void init(uint32_t serial_diag_bitrate, bool initial, bool pulldown_rst_mode = false);
@@ -98,7 +98,7 @@ class GxEPD2_4G_EPD
     void _writeCommandData(const uint8_t* pCommandData, uint8_t datalen);
     void _writeCommandDataPGM(const uint8_t* pCommandData, uint8_t datalen);
   protected:
-    int8_t _cs, _dc, _rst, _busy, _busy_level;
+    int16_t _cs, _dc, _rst, _busy, _busy_level;
     uint32_t _busy_timeout;
     bool _diag_enabled, _pulldown_rst_mode;
     SPISettings _spi_settings;

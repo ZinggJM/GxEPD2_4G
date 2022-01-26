@@ -73,7 +73,28 @@
 - GDEW042T2      4.2" b/w
 - GDEW075T7      7.5" b/w 800x480
 
-### Version 1.0.5
+### Version 1.0.6
+- added support for mixed b/w and 4G content, fast b/w partial refresh on grey background
+- added classes GxEPD2_4G_BW_R and GxEPD2_4G_4G_R, for reference to common driver class
+- added example GxEPD2_4G_MixedExample to show use of fast b/w on grey
+- mixed content is experimental
+- mixed content with fast b/w refresh can't be used with GDEM029T94
+- added option to select an alternate HW SPI channel and/or SPI settings
+- by method selectSPI(SPIClass& spi, SPISettings spi_settings) of driver base class GxEPD2_4G_EPD
+- by calling selectSPI before calling init() of display class
+- or by calling extended init() method that has these parameters added
+- tested with RPi Pico RP2040 using Good Display DESPI-PICO connection shield
+- updated GxEPD2_4G_Example to show use with DESPI-PICO
+- DESPI-PICO: see https://www.good-display.com/product/393.html
+- added optional init parameter "reset_duration" in ms
+- reset_duration = 2 may help with "clever" reset circuit of newer boards from Waveshare
+- changed the default reset duration to 10ms instead of 20ms
+- changed the delay after reset to 10ms or reset duration, whichever is higher, instead of 200ms
+- added a busyCallback feature, to allow to service periodic actions during wait for BUSY termination
+- ` // register a callback function to be called during _waitWhileBusy continuously. `
+- ` void setBusyCallback(void (*busyCallback)(const void*), const void* busy_callback_parameter = 0); `
+- added some updates to solve compiler warnings (ALL for GCC for AVR)
+#### Version 1.0.5
 - fix for STM32 official package pin number range (int16_t)
 - fix for refresh(int16_t x, int16_t y, int16_t w, int16_t h) methods screen intersection
 #### Version 1.0.4

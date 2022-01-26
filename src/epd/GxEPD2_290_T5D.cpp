@@ -54,8 +54,8 @@ void GxEPD2_290_T5D::writeImage(const uint8_t bitmap[], int16_t x, int16_t y, in
   w = wb * 8; // byte boundary
   int16_t x1 = x < 0 ? 0 : x; // limit
   int16_t y1 = y < 0 ? 0 : y; // limit
-  int16_t w1 = x + w < int16_t(WIDTH) ? w : int16_t(WIDTH) - x; // limit
-  int16_t h1 = y + h < int16_t(HEIGHT) ? h : int16_t(HEIGHT) - y; // limit
+  uint16_t w1 = x + w < int16_t(WIDTH) ? w : int16_t(WIDTH) - x; // limit
+  uint16_t h1 = y + h < int16_t(HEIGHT) ? h : int16_t(HEIGHT) - y; // limit
   int16_t dx = x1 - x;
   int16_t dy = y1 - y;
   w1 -= dx;
@@ -66,9 +66,9 @@ void GxEPD2_290_T5D::writeImage(const uint8_t bitmap[], int16_t x, int16_t y, in
   _writeCommand(0x91); // partial in
   _setPartialRamArea(x1, y1, w1, h1);
   _writeCommand(0x13);
-  for (int16_t i = 0; i < h1; i++)
+  for (uint16_t i = 0; i < h1; i++)
   {
-    for (int16_t j = 0; j < w1 / 8; j++)
+    for (uint16_t j = 0; j < w1 / 8; j++)
     {
       uint8_t data;
       // use wb, h of bitmap for index!
@@ -107,8 +107,8 @@ void GxEPD2_290_T5D::writeImage_4G(const uint8_t bitmap[], uint8_t bpp, int16_t 
   int16_t wb = (w + ppb - 1) / ppb; // width bytes of bitmap, bitmaps are padded
   int16_t x1 = x < 0 ? 0 : x; // limit
   int16_t y1 = y < 0 ? 0 : y; // limit
-  int16_t w1 = x + w < int16_t(WIDTH) ? w : int16_t(WIDTH) - x; // limit
-  int16_t h1 = y + h < int16_t(HEIGHT) ? h : int16_t(HEIGHT) - y; // limit
+  uint16_t w1 = x + w < int16_t(WIDTH) ? w : int16_t(WIDTH) - x; // limit
+  uint16_t h1 = y + h < int16_t(HEIGHT) ? h : int16_t(HEIGHT) - y; // limit
   int16_t dx = x1 - x;
   int16_t dy = y1 - y;
   w1 -= dx;
@@ -118,12 +118,12 @@ void GxEPD2_290_T5D::writeImage_4G(const uint8_t bitmap[], uint8_t bpp, int16_t 
   _writeCommand(0x91); // partial in
   _setPartialRamArea(x1, y1, w1, h1);
   _writeCommand(0x10);
-  for (int16_t i = 0; i < h1; i++) // lines
+  for (uint16_t i = 0; i < h1; i++) // lines
   {
-    for (int16_t j = 0; j < w1 / ppb; j += bpp) // out bytes
+    for (uint16_t j = 0; j < w1 / ppb; j += bpp) // out bytes
     {
       uint8_t out_byte = 0;
-      for (int16_t k = 0; k < bpp; k++) // in bytes (bpp per out byte)
+      for (uint16_t k = 0; k < bpp; k++) // in bytes (bpp per out byte)
       {
         uint8_t in_byte;
         // use wb, h of bitmap for index!
@@ -141,7 +141,7 @@ void GxEPD2_290_T5D::writeImage_4G(const uint8_t bitmap[], uint8_t bpp, int16_t 
           in_byte = bitmap[idx];
         }
         if (invert) in_byte = ~in_byte;
-        for (int16_t n = 0; n < ppb; n++) // bits, nibbles (ppb per in byte)
+        for (uint16_t n = 0; n < ppb; n++) // bits, nibbles (ppb per in byte)
         {
           out_byte <<= 1;
           uint8_t nibble = in_byte & mask;
@@ -156,12 +156,12 @@ void GxEPD2_290_T5D::writeImage_4G(const uint8_t bitmap[], uint8_t bpp, int16_t 
     }
   }
   _writeCommand(0x13);
-  for (int16_t i = 0; i < h1; i++) // lines
+  for (uint16_t i = 0; i < h1; i++) // lines
   {
-    for (int16_t j = 0; j < w1 / ppb; j += bpp) // out bytes
+    for (uint16_t j = 0; j < w1 / ppb; j += bpp) // out bytes
     {
       uint8_t out_byte = 0;
-      for (int16_t k = 0; k < bpp; k++) // in bytes (bpp per out byte)
+      for (uint16_t k = 0; k < bpp; k++) // in bytes (bpp per out byte)
       {
         uint8_t in_byte;
         // use wb, h of bitmap for index!
@@ -179,7 +179,7 @@ void GxEPD2_290_T5D::writeImage_4G(const uint8_t bitmap[], uint8_t bpp, int16_t 
           in_byte = bitmap[idx];
         }
         if (invert) in_byte = ~in_byte;
-        for (int16_t n = 0; n < ppb; n++) // bits, nibbles (ppb per in byte)
+        for (uint16_t n = 0; n < ppb; n++) // bits, nibbles (ppb per in byte)
         {
           out_byte <<= 1;
           uint8_t nibble = in_byte & mask;
@@ -214,8 +214,8 @@ void GxEPD2_290_T5D::writeImagePart(const uint8_t bitmap[], int16_t x_part, int1
   w = wbc * 8; // byte boundary on controller
   int16_t x1 = x < 0 ? 0 : x; // limit
   int16_t y1 = y < 0 ? 0 : y; // limit
-  int16_t w1 = x + w < int16_t(WIDTH) ? w : int16_t(WIDTH) - x; // limit
-  int16_t h1 = y + h < int16_t(HEIGHT) ? h : int16_t(HEIGHT) - y; // limit
+  uint16_t w1 = x + w < int16_t(WIDTH) ? w : int16_t(WIDTH) - x; // limit
+  uint16_t h1 = y + h < int16_t(HEIGHT) ? h : int16_t(HEIGHT) - y; // limit
   int16_t dx = x1 - x;
   int16_t dy = y1 - y;
   w1 -= dx;
@@ -226,9 +226,9 @@ void GxEPD2_290_T5D::writeImagePart(const uint8_t bitmap[], int16_t x_part, int1
   _writeCommand(0x91); // partial in
   _setPartialRamArea(x1, y1, w1, h1);
   _writeCommand(0x13);
-  for (int16_t i = 0; i < h1; i++)
+  for (uint16_t i = 0; i < h1; i++)
   {
-    for (int16_t j = 0; j < w1 / 8; j++)
+    for (uint16_t j = 0; j < w1 / 8; j++)
     {
       uint8_t data;
       // use wb_bitmap, h_bitmap of bitmap for index!
@@ -273,8 +273,8 @@ void GxEPD2_290_T5D::writeImagePart_4G(const uint8_t bitmap[], uint8_t bpp, int1
   w = ppb * ((w + ppb - 1) / ppb); // byte boundary, bitmaps are padded
   int16_t x1 = x < 0 ? 0 : x; // limit
   int16_t y1 = y < 0 ? 0 : y; // limit
-  int16_t w1 = x + w < int16_t(WIDTH) ? w : int16_t(WIDTH) - x; // limit
-  int16_t h1 = y + h < int16_t(HEIGHT) ? h : int16_t(HEIGHT) - y; // limit
+  uint16_t w1 = x + w < int16_t(WIDTH) ? w : int16_t(WIDTH) - x; // limit
+  uint16_t h1 = y + h < int16_t(HEIGHT) ? h : int16_t(HEIGHT) - y; // limit
   int16_t dx = x1 - x;
   int16_t dy = y1 - y;
   w1 -= dx;
@@ -284,12 +284,12 @@ void GxEPD2_290_T5D::writeImagePart_4G(const uint8_t bitmap[], uint8_t bpp, int1
   _writeCommand(0x91); // partial in
   _setPartialRamArea(x1, y1, w1, h1);
   _writeCommand(0x10);
-  for (int16_t i = 0; i < h1; i++) // lines
+  for (uint16_t i = 0; i < h1; i++) // lines
   {
-    for (int16_t j = 0; j < w1 / ppb; j += bpp) // out bytes
+    for (uint16_t j = 0; j < w1 / ppb; j += bpp) // out bytes
     {
       uint8_t out_byte = 0;
-      for (int16_t k = 0; k < bpp; k++) // in bytes (bpp per out byte)
+      for (uint16_t k = 0; k < bpp; k++) // in bytes (bpp per out byte)
       {
         uint8_t in_byte;
         // use wb_bitmap, h_bitmap of bitmap for index!
@@ -307,7 +307,7 @@ void GxEPD2_290_T5D::writeImagePart_4G(const uint8_t bitmap[], uint8_t bpp, int1
           in_byte = bitmap[idx];
         }
         if (invert) in_byte = ~in_byte;
-        for (int16_t n = 0; n < ppb; n++) // bits, nibbles (ppb per in byte)
+        for (uint16_t n = 0; n < ppb; n++) // bits, nibbles (ppb per in byte)
         {
           out_byte <<= 1;
           uint8_t nibble = in_byte & mask;
@@ -322,12 +322,12 @@ void GxEPD2_290_T5D::writeImagePart_4G(const uint8_t bitmap[], uint8_t bpp, int1
     }
   }
   _writeCommand(0x13);
-  for (int16_t i = 0; i < h1; i++) // lines
+  for (uint16_t i = 0; i < h1; i++) // lines
   {
-    for (int16_t j = 0; j < w1 / ppb; j += bpp) // out bytes
+    for (uint16_t j = 0; j < w1 / ppb; j += bpp) // out bytes
     {
       uint8_t out_byte = 0;
-      for (int16_t k = 0; k < bpp; k++) // in bytes (bpp per out byte)
+      for (uint16_t k = 0; k < bpp; k++) // in bytes (bpp per out byte)
       {
         uint8_t in_byte;
         // use wb_bitmap, h_bitmap of bitmap for index!
@@ -345,7 +345,7 @@ void GxEPD2_290_T5D::writeImagePart_4G(const uint8_t bitmap[], uint8_t bpp, int1
           in_byte = bitmap[idx];
         }
         if (invert) in_byte = ~in_byte;
-        for (int16_t n = 0; n < ppb; n++) // bits, nibbles (ppb per in byte)
+        for (uint16_t n = 0; n < ppb; n++) // bits, nibbles (ppb per in byte)
         {
           out_byte <<= 1;
           uint8_t nibble = in_byte & mask;

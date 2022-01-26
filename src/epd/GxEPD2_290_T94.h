@@ -25,7 +25,8 @@ class GxEPD2_290_T94 : public GxEPD2_4G_EPD
     static const GxEPD2_4G::Panel panel = GxEPD2_4G::GDEM029T94;
     static const bool hasColor = false;
     static const bool hasPartialUpdate = false; // with grey refresh
-    static const bool hasFastPartialUpdate = false; // with grey refresh
+    //static const bool hasFastPartialUpdate = false; // with grey refresh
+    static const bool hasFastPartialUpdate = true; // with b/w refresh
     static const uint16_t power_on_time = 100; // ms, e.g. 95868us
     static const uint16_t power_off_time = 150; // ms, e.g. 140350us
     static const uint16_t full_refresh_time = 5500; // ms, e.g. 5406814us

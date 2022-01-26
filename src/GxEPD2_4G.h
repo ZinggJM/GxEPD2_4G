@@ -7,7 +7,7 @@
 //
 // Version: see library.properties
 //
-// Library: https://github.com/ZinggJM/GxEPD2
+// Library: https://github.com/ZinggJM/GxEPD2_4G
 
 #ifndef _GxEPD2_4G_H_
 #define _GxEPD2_4G_H_

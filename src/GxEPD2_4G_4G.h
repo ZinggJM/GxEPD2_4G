@@ -7,12 +7,29 @@
 //
 // Version: see library.properties
 //
-// Library: https://github.com/ZinggJM/GxEPD2
+// Library: https://github.com/ZinggJM/GxEPD2_4G
 
 #ifndef _GxEPD2_4G_4G_H_
 #define _GxEPD2_4G_4G_H_
 
+// uncomment next line to use class GFX of library GFX_Root instead of Adafruit_GFX
+//#include <GFX.h>
+
+#ifndef ENABLE_GxEPD2_4G_GFX
+// default is off
+#define ENABLE_GxEPD2_4G_GFX 0
+#endif
+
+#if ENABLE_GxEPD2_4G_GFX
+#include "GxEPD2_4G_GFX.h"
+#define GxEPD2_4G_GFX_BASE_CLASS GxEPD2_4G_GFX
+#elif defined(_GFX_H_)
+#define GxEPD2_4G_GFX_BASE_CLASS GFX
+#else
 #include <Adafruit_GFX.h>
+#define GxEPD2_4G_GFX_BASE_CLASS Adafruit_GFX
+#endif
+
 #include "GxEPD2_4G_EPD.h"
 #include "epd/GxEPD2_213_flex.h"
 #include "epd/GxEPD2_290_T5.h"
@@ -24,28 +41,15 @@
 #include "epd/GxEPD2_420.h"
 #include "epd/GxEPD2_750_T7.h"
 
-#ifndef ENABLE_GxEPD2_4G_GFX
-// default is off
-#define ENABLE_GxEPD2_4G_GFX 0
-#endif
-
-#if ENABLE_GxEPD2_4G_GFX
-#include "GxEPD2_4G_GFX.h"
-#endif
-
 template<typename GxEPD2_Type, const uint16_t page_height>
-#if ENABLE_GxEPD2_4G_GFX
-class GxEPD2_4G_4G_R : public GxEPD2_4G_GFX
-#else
-class GxEPD2_4G_4G_R : public Adafruit_GFX
-#endif
+class GxEPD2_4G_4G_R : public GxEPD2_4G_GFX_BASE_CLASS
 {
   public:
     GxEPD2_Type& epd2;
 #if ENABLE_GxEPD2_4G_GFX
-    GxEPD2_4G_4G_R(GxEPD2_Type& epd2_instance) : GxEPD2_4G_GFX(epd2, GxEPD2_Type::WIDTH, GxEPD2_Type::HEIGHT), epd2(epd2_instance)
+    GxEPD2_4G_4G_R(GxEPD2_Type& epd2_instance) : GxEPD2_4G_GFX_BASE_CLASS(epd2, GxEPD2_Type::WIDTH, GxEPD2_Type::HEIGHT), epd2(epd2_instance)
 #else
-    GxEPD2_4G_4G_R(GxEPD2_Type & epd2_instance) : Adafruit_GFX(GxEPD2_Type::WIDTH, GxEPD2_Type::HEIGHT), epd2(epd2_instance)
+    GxEPD2_4G_4G_R(GxEPD2_Type& epd2_instance) : GxEPD2_4G_GFX_BASE_CLASS(GxEPD2_Type::WIDTH, GxEPD2_Type::HEIGHT), epd2(epd2_instance)
 #endif
     {
       _page_height = page_height;
@@ -95,11 +99,11 @@ class GxEPD2_4G_4G_R : public Adafruit_GFX
       x -= _pw_x;
       y -= _pw_y;
       // clip to (partial) window
-      if ((x < 0) || (x >= _pw_w) || (y < 0) || (y >= _pw_h)) return;
+      if ((x < 0) || (x >= int16_t(_pw_w)) || (y < 0) || (y >= int16_t(_pw_h))) return;
       // adjust for current page
       y -= _current_page * _page_height;
       // check if in current page
-      if ((y < 0) || (y >= _page_height)) return;
+      if ((y < 0) || (y >= int16_t(_page_height))) return;
       uint16_t i = x / 4 + y * (_pw_w / 4);
       _buffer[i] = (_buffer[i] & (0xFF ^ (3 << 2 * (3 - x % 4))));
       if (color > 0)
@@ -159,10 +163,23 @@ class GxEPD2_4G_4G_R : public Adafruit_GFX
     // init method with additional parameters:
     // initial false for re-init after processor deep sleep wake up, if display power supply was kept
     // only relevant for b/w displays with fast partial update
+    // reset_duration = 10 is default; a value of 2 may help with "clever" reset circuit of newer boards from Waveshare 
     // pulldown_rst_mode true for alternate RST handling to avoid feeding 5V through RST pin
-    void init(uint32_t serial_diag_bitrate, bool initial, bool pulldown_rst_mode = false)
+    void init(uint32_t serial_diag_bitrate, bool initial, uint16_t reset_duration = 10, bool pulldown_rst_mode = false)
     {
-      epd2.init(serial_diag_bitrate, initial, pulldown_rst_mode);
+      epd2.init(serial_diag_bitrate, initial, reset_duration, pulldown_rst_mode);
+      _using_partial_mode = false;
+      _current_page = 0;
+      setFullWindow();
+    }
+
+    // init method with additional parameters:
+    // SPIClass& spi: either SPI or alternate HW SPI channel
+    // SPISettings spi_settings: e.g. for higher SPI speed selection
+    void init(uint32_t serial_diag_bitrate, bool initial, uint16_t reset_duration, bool pulldown_rst_mode, SPIClass& spi, SPISettings spi_settings)
+    {
+      epd2.selectSPI(spi, spi_settings);
+      epd2.init(serial_diag_bitrate, initial, reset_duration, pulldown_rst_mode);
       _using_partial_mode = false;
       _current_page = 0;
       setFullWindow();
@@ -248,7 +265,7 @@ class GxEPD2_4G_4G_R : public Adafruit_GFX
       {
         //Serial.print("  nextPage("); Serial.print(_pw_x); Serial.print(", "); Serial.print(_pw_y); Serial.print(", ");
         //Serial.print(_pw_w); Serial.print(", "); Serial.print(_pw_h); Serial.print(") P"); Serial.println(_current_page);
-        uint16_t page_ye = _current_page < (_pages - 1) ? page_ys + _page_height : HEIGHT;
+        uint16_t page_ye = _current_page < int16_t(_pages - 1) ? page_ys + _page_height : HEIGHT;
         uint16_t dest_ys = _pw_y + page_ys; // transposed
         uint16_t dest_ye = gx_uint16_min(_pw_y + _pw_h, _pw_y + page_ye);
         if (dest_ye > dest_ys)
@@ -264,7 +281,7 @@ class GxEPD2_4G_4G_R : public Adafruit_GFX
           //Serial.print(dest_ys); Serial.print(".."); Serial.println(dest_ye);
         }
         _current_page++;
-        if (_current_page == _pages)
+        if (_current_page == int16_t(_pages))
         {
           _current_page = 0;
           if (!_second_phase)
@@ -285,7 +302,7 @@ class GxEPD2_4G_4G_R : public Adafruit_GFX
       {
         epd2.writeImage_4G(_buffer, 2, 0, page_ys, WIDTH, gx_uint16_min(_page_height, HEIGHT - page_ys));
         _current_page++;
-        if (_current_page == _pages)
+        if (_current_page == int16_t(_pages))
         {
           _current_page = 0;
           if ((epd2.panel == GxEPD2_4G::GDEW0154Z04) && (_pages > 1))

@@ -537,9 +537,10 @@ void GxEPD2_750_T7::_InitDisplay()
   if (_hibernating) _reset();
   _writeCommand(0x01); // POWER SETTING
   _writeData (0x07);
-  _writeData (0x07); // VGH=20V,VGL=-20V
-  _writeData (0x3f); // VDH=15V
-  _writeData (0x3f); // VDL=-15V
+  _transfer(0x17); // VGH=20V,VGL=-20V
+  _transfer(0x3a); // VDH=14V
+  _transfer(0x3a); // VDL=-14V
+  _transfer(0x03); // VDHR=3V
   _writeCommand(0x00); //PANEL SETTING
   _writeData(0x1f); //KW: 3f, KWR: 2F, BWROTP: 0f, BWOTP: 1f
   _writeCommand(0x61); //tres

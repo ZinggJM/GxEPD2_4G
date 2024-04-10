@@ -1,7 +1,7 @@
 // Display Library example for SPI e-paper panels from Dalian Good Display and boards from Waveshare.
-// Requires HW SPI and Adafruit_GFX. Caution: these e-papers require 3.3V supply AND data lines!
+// Requires HW SPI and Adafruit_GFX. Caution: the e-paper panels require 3.3V supply AND data lines!
 //
-// Display Library based on Demo Example from Good Display: http://www.e-paper-display.com/download_list/downloadcategoryid=34&isMode=false.html
+// Display Library based on Demo Example from Good Display: https://www.good-display.com/companyfile/32/
 //
 // Author: Jean-Marc Zingg
 //
@@ -9,44 +9,13 @@
 //
 // Library: https://github.com/ZinggJM/GxEPD2_4G
 
-// Supporting Arduino Forum Topics:
-// Waveshare e-paper displays with SPI: http://forum.arduino.cc/index.php?topic=487007.0
-// Good Dispay ePaper for Arduino: https://forum.arduino.cc/index.php?topic=436411.0
+// Supporting Arduino Forum Topics (closed, read only):
+// Good Display ePaper for Arduino: https://forum.arduino.cc/t/good-display-epaper-for-arduino/419657
+// Waveshare e-paper displays with SPI: https://forum.arduino.cc/t/waveshare-e-paper-displays-with-spi/467865
+//
+// Add new topics in https://forum.arduino.cc/c/using-arduino/displays/23 for new questions and issues
 
-// mapping suggestion from Waveshare SPI e-Paper to Wemos D1 mini
-// BUSY -> D2, RST -> D4, DC -> D3, CS -> D8, CLK -> D5, DIN -> D7, GND -> GND, 3.3V -> 3.3V
-// NOTE: connect 4.7k pull-down from D8 to GND if your board or shield has level converters
-// NOTE for ESP8266: using SS (GPIO15) for CS may cause boot mode problems, use different pin in case, or 4k7 pull-down
-
-// mapping suggestion from Waveshare SPI e-Paper to generic ESP8266
-// BUSY -> GPIO4, RST -> GPIO2, DC -> GPIO0, CS -> GPIO15, CLK -> GPIO14, DIN -> GPIO13, GND -> GND, 3.3V -> 3.3V
-// NOTE: connect 4.7k pull-down from GPIO15 to GND if your board or shield has level converters
-// NOTE for ESP8266: using SS (GPIO15) for CS may cause boot mode problems, use different pin in case, or 4k7 pull-down
-
-// mapping of Waveshare e-Paper ESP8266 Driver Board, new version
-// BUSY -> GPIO5, RST -> GPIO2, DC -> GPIO4, CS -> GPIO15, CLK -> GPIO14, DIN -> GPIO13, GND -> GND, 3.3V -> 3.3V
-// NOTE for ESP8266: using SS (GPIO15) for CS may cause boot mode problems, add a 3.3k pull-down in case
-//      the e-Paper ESP8266 Driver Board should have no boot mode issue, as it doesn't use level converters
-
-// mapping of Waveshare e-Paper ESP8266 Driver Board, old version
-// BUSY -> GPIO16, RST -> GPIO5, DC -> GPIO4, CS -> GPIO15, CLK -> GPIO14, DIN -> GPIO13, GND -> GND, 3.3V -> 3.3V
-// NOTE for ESP8266: using SS (GPIO15) for CS may cause boot mode problems, use different pin in case
-
-// mapping suggestion for ESP32, e.g. LOLIN32, see .../variants/.../pins_arduino.h for your board
-// NOTE: there are variants with different pins for SPI ! CHECK SPI PINS OF YOUR BOARD
-// BUSY -> 4, RST -> 16, DC -> 17, CS -> SS(5), CLK -> SCK(18), DIN -> MOSI(23), GND -> GND, 3.3V -> 3.3V
-
-// new mapping suggestion for STM32F1, e.g. STM32F103C8T6 "BluePill"
-// BUSY -> A1, RST -> A2, DC -> A3, CS-> A4, CLK -> A5, DIN -> A7
-
-// mapping suggestion for AVR, UNO, NANO etc.
-// BUSY -> 7, RST -> 9, DC -> 8, CS-> 10, CLK -> 13, DIN -> 11
-
-// mapping of Waveshare Universal e-Paper Raw Panel Driver Shield for Arduino / NUCLEO
-// BUSY -> 7, RST -> 8, DC -> 9, CS-> 10, CLK -> 13, DIN -> 11
-
-// mapping suggestion for Arduino MEGA
-// BUSY -> 7, RST -> 9, DC -> 8, CS-> 53, CLK -> 52, DIN -> 51
+// see GxEPD2_wiring_examples.h for wiring suggestions and examples
 
 // base class GxEPD2_GFX can be used to pass references or pointers to the display instance as parameter, uses ~1.2k more code
 // enable or disable GxEPD2_GFX base class
@@ -56,106 +25,12 @@
 #include <GxEPD2_4G_BW.h>
 #include <Fonts/FreeMonoBold9pt7b.h>
 
-#if defined (ESP8266)
-// select one and adapt to your mapping, can use full buffer size (full HEIGHT)
-//GxEPD2_4G_4G<GxEPD2_213_flex, GxEPD2_213_flex::HEIGHT> display(GxEPD2_213_flex(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4)); // GDEW0213I5F
-//GxEPD2_4G_4G<GxEPD2_290_T5, GxEPD2_290_T5::HEIGHT> display(GxEPD2_290_T5(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4)); // GDEW029T5
-//GxEPD2_4G_4G<GxEPD2_290_T5D, GxEPD2_290_T5D::HEIGHT> display(GxEPD2_290_T5D(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4)); // GDEW029T5D
-//GxEPD2_4G_4G<GxEPD2_290_I6FD, GxEPD2_290_I6FD::HEIGHT> display(GxEPD2_290_I6FD(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4)); // GDEW029I6FD
-//GxEPD2_4G_4G<GxEPD2_290_T94, GxEPD2_290_T94::HEIGHT> display(GxEPD2_290_T94(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4)); // GDEW029T94
-//GxEPD2_4G_4G<GxEPD2_270, GxEPD2_270::HEIGHT> display(GxEPD2_270(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4));
-//GxEPD2_4G_4G<GxEPD2_371, GxEPD2_371::HEIGHT> display(GxEPD2_371(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4));
-//GxEPD2_4G_4G<GxEPD2_420, GxEPD2_420::HEIGHT> display(GxEPD2_420(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4));
-//GxEPD2_4G_4G<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT / 2> display(GxEPD2_750_T7(/*CS=D8*/ SS, /*DC=D3*/ 0, /*RST=D4*/ 2, /*BUSY=D2*/ 4));
+// select the display constructor line in one of the following files (old style):
+#include "GxEPD2_4G_display_selection.h"
+#include "GxEPD2_4G_display_selection_added.h"
 
-// ***** for mapping of Waveshare e-Paper ESP8266 Driver Board, new version *****
-// select one , can use full buffer size (full HEIGHT)
-//GxEPD2_4G_4G<GxEPD2_213_flex, GxEPD2_213_flex::HEIGHT> display(GxEPD2_213_flex(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5)); // GDEW0213I5F
-//GxEPD2_4G_4G<GxEPD2_290_T5, GxEPD2_290_T5::HEIGHT> display(GxEPD2_290_T5(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5)); // GDEW029T5
-//GxEPD2_4G_4G<GxEPD2_290_T5D, GxEPD2_290_T5D::HEIGHT> display(GxEPD2_290_T5D(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5)); // GDEW029T5D
-//GxEPD2_4G_4G<GxEPD2_290_I6FD, GxEPD2_290_I6FD::HEIGHT> display(GxEPD2_290_I6FD(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5)); // GDEW029I6FD
-//GxEPD2_4G_4G<GxEPD2_290_T94, GxEPD2_290_T94::HEIGHT> display(GxEPD2_290_T94(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5)); // GDEW029T94
-//GxEPD2_4G_4G<GxEPD2_270, GxEPD2_270::HEIGHT> display(GxEPD2_270(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5));
-//GxEPD2_4G_4G<GxEPD2_371, GxEPD2_371::HEIGHT> display(GxEPD2_371(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5));
-//GxEPD2_4G_4G<GxEPD2_420, GxEPD2_420::HEIGHT> display(GxEPD2_420(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5));
-//GxEPD2_4G_4G<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT / 2> display(GxEPD2_750_T7(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=2*/ 2, /*BUSY=5*/ 5));
-
-// ***** for mapping of Waveshare e-Paper ESP8266 Driver Board, old version *****
-// select one , can use full buffer size (full HEIGHT)
-//GxEPD2_4G_4G<GxEPD2_213_flex, GxEPD2_213_flex::HEIGHT> display(GxEPD2_213_flex(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16)); // GDEW0213I5F
-//GxEPD2_4G_4G<GxEPD2_290_T5, GxEPD2_290_T5::HEIGHT> display(GxEPD2_290_T5(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16)); // GDEW029T5
-//GxEPD2_4G_4G<GxEPD2_290_T5D, GxEPD2_290_T5D::HEIGHT> display(GxEPD2_290_T5D(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16)); // GDEW029T5D
-//GxEPD2_4G_4G<GxEPD2_290_I6FD, GxEPD2_290_I6FD::HEIGHT> display(GxEPD2_290_I6FD(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16)); // GDEW029I6FD
-//GxEPD2_4G_4G<GxEPD2_290_T94, GxEPD2_290_T94::HEIGHT> display(GxEPD2_290_T94(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16)); // GDEW029T94
-//GxEPD2_4G_4G<GxEPD2_270, GxEPD2_270::HEIGHT> display(GxEPD2_270(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16));
-//GxEPD2_4G_4G<GxEPD2_371, GxEPD2_371::HEIGHT> display(GxEPD2_371(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16));
-//GxEPD2_4G_4G<GxEPD2_420, GxEPD2_420::HEIGHT> display(GxEPD2_420(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16));
-//GxEPD2_4G_4G<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT / 2> display(GxEPD2_750_T7(/*CS=15*/ SS, /*DC=4*/ 4, /*RST=5*/ 5, /*BUSY=16*/ 16));
-#endif
-
-#if defined(ESP32)
-// select one and adapt to your mapping, can use full buffer size (full HEIGHT)
-//GxEPD2_4G_4G<GxEPD2_213_flex, GxEPD2_213_flex::HEIGHT> display(GxEPD2_213_flex(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4)); // GDEW0213I5F
-//GxEPD2_4G_4G<GxEPD2_290_T5, GxEPD2_290_T5::HEIGHT> display(GxEPD2_290_T5(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4)); // GDEW029T5
-//GxEPD2_4G_4G<GxEPD2_290_T5D, GxEPD2_290_T5D::HEIGHT> display(GxEPD2_290_T5D(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4)); // GDEW029T5D
-//GxEPD2_4G_4G<GxEPD2_290_I6FD, GxEPD2_290_I6FD::HEIGHT> display(GxEPD2_290_I6FD(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4)); // GDEW029I6FD
-//GxEPD2_4G_4G<GxEPD2_290_T94, GxEPD2_290_T94::HEIGHT> display(GxEPD2_290_T94(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4)); // GDEW029T94
-//GxEPD2_4G_4G<GxEPD2_270, GxEPD2_270::HEIGHT> display(GxEPD2_270(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4));
-//GxEPD2_4G_4G<GxEPD2_371, GxEPD2_371::HEIGHT> display(GxEPD2_371(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4));
-//GxEPD2_4G_4G<GxEPD2_420, GxEPD2_420::HEIGHT> display(GxEPD2_420(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4));
-// note: need to use half height buffer, to stay < 96000 bytes of RAM, would hang on setup else
-//GxEPD2_4G_4G<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT / 2> display(GxEPD2_750_T7(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4));
-#endif
-
-// can't use package "STMF1 Boards (STM32Duino.com)" (Roger Clark) anymore with Adafruit_GFX, use "STM32 Boards (selected from submenu)" (STMicroelectronics)
-#if defined(ARDUINO_ARCH_STM32)
-#define MAX_DISPAY_BUFFER_SIZE 15000ul // ~15k is a good compromise
-#define MAX_HEIGHT(EPD) (EPD::HEIGHT <= MAX_DISPAY_BUFFER_SIZE / (EPD::WIDTH / 4) ? EPD::HEIGHT : MAX_DISPAY_BUFFER_SIZE / (EPD::WIDTH / 4))
-// select one and adapt to your mapping
-//GxEPD2_4G_4G<GxEPD2_213_flex, MAX_HEIGHT(GxEPD2_213_flex)> display(GxEPD2_213_flex(/*CS=PA4*/ SS, /*DC=*/ PA3, /*RST=*/ PA2, /*BUSY=*/ PA1)); // GDEW0213I5F
-//GxEPD2_4G_4G<GxEPD2_290_T5, MAX_HEIGHT(GxEPD2_290_T5)> display(GxEPD2_290_T5(/*CS=PA4*/ SS, /*DC=*/ PA3, /*RST=*/ PA2, /*BUSY=*/ PA1)); // GDEW029T5
-//GxEPD2_4G_4G<GxEPD2_290_T5D, MAX_HEIGHT(GxEPD2_290_T5D)> display(GxEPD2_290_T5D(/*CS=PA4*/ SS, /*DC=*/ PA3, /*RST=*/ PA2, /*BUSY=*/ PA1)); // GDEW029T5D
-//GxEPD2_4G_4G<GxEPD2_290_I6FD, MAX_HEIGHT(GxEPD2_290_I6FD)> display(GxEPD2_290_I6FD(/*CS=PA4*/ SS, /*DC=*/ PA3, /*RST=*/ PA2, /*BUSY=*/ PA1)); // GDEW029I6FD
-//GxEPD2_4G_4G<GxEPD2_290_T94, MAX_HEIGHT(GxEPD2_290_T94)> display(GxEPD2_290_T94(/*CS=PA4*/ SS, /*DC=*/ PA3, /*RST=*/ PA2, /*BUSY=*/ PA1)); // GDEW029T94
-//GxEPD2_4G_4G<GxEPD2_270, MAX_HEIGHT(GxEPD2_270)> display(GxEPD2_270(/*CS=PA4*/ SS, /*DC=*/ PA3, /*RST=*/ PA2, /*BUSY=*/ PA1));
-//GxEPD2_4G_4G<GxEPD2_371, MAX_HEIGHT(GxEPD2_371)> display(GxEPD2_371(/*CS=PA4*/ SS, /*DC=*/ PA3, /*RST=*/ PA2, /*BUSY=*/ PA1));
-//GxEPD2_4G_4G<GxEPD2_420, MAX_HEIGHT(GxEPD2_420)> display(GxEPD2_420(/*CS=PA4*/ SS, /*DC=*/ PA3, /*RST=*/ PA2, /*BUSY=*/ PA1));
-//GxEPD2_4G_4G<GxEPD2_750_T7, MAX_HEIGHT(GxEPD2_750_T7)> display(GxEPD2_750_T7(/*CS=PA4*/ SS, /*DC=*/ PA3, /*RST=*/ PA2, /*BUSY=*/ PA1));
-#endif
-
-#if defined(__AVR)
-#define MAX_DISPAY_BUFFER_SIZE 800 // 
-#define MAX_HEIGHT(EPD) (EPD::HEIGHT <= MAX_DISPAY_BUFFER_SIZE / (EPD::WIDTH / 4) ? EPD::HEIGHT : MAX_DISPAY_BUFFER_SIZE / (EPD::WIDTH / 4))
-// select one and adapt to your mapping
-//GxEPD2_4G_4G<GxEPD2_213_flex, MAX_HEIGHT(GxEPD2_213_flex)> display(GxEPD2_213_flex(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7)); // GDEW0213I5F
-//GxEPD2_4G_4G<GxEPD2_290_T5, MAX_HEIGHT(GxEPD2_290_T5)> display(GxEPD2_290_T5(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7)); // GDEW029T5
-//GxEPD2_4G_4G<GxEPD2_290_T5D, MAX_HEIGHT(GxEPD2_290_T5D)> display(GxEPD2_290_T5D(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7)); // GDEW029T5D
-//GxEPD2_4G_4G<GxEPD2_290_I6FD, MAX_HEIGHT(GxEPD2_290_I6FD)> display(GxEPD2_290_I6FD(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7)); // GDEW029I6FD
-//GxEPD2_4G_4G<GxEPD2_290_T94, MAX_HEIGHT(GxEPD2_290_T94)> display(GxEPD2_290_T94(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7)); // GDEW029T94
-//GxEPD2_4G_4G<GxEPD2_270, MAX_HEIGHT(GxEPD2_270)> display(GxEPD2_270(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7));
-//GxEPD2_4G_4G<GxEPD2_371, MAX_HEIGHT(GxEPD2_371)> display(GxEPD2_371(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7));
-//GxEPD2_4G_4G<GxEPD2_420, MAX_HEIGHT(GxEPD2_420)> display(GxEPD2_420(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7));
-//GxEPD2_4G_4G<GxEPD2_750_T7, MAX_HEIGHT(GxEPD2_750_T7)> display(GxEPD2_750_T7(/*CS=10*/ SS, /*DC=*/ 8, /*RST=*/ 9, /*BUSY=*/ 7));
-
-// ***** for mapping of Waveshare Universal e-Paper Raw Panel Driver Shield for Arduino / NUCLEO *****
-// the RST line is not connected through level converter, but has a pull up resistor and a pull down diode to the Arduino pin; this is safe for 5V Arduino
-// NOTE: the 11-pinholes for pin connectors are not through level converter, and the VCC pin is ~4.2V, only FCP connector pins are through level converter
-// NOTE: the VCC pin on the 11-pinholes for pin connectors shouldn't be used, it seems to get back-fed from Arduino data pins through protection diodes of the level converter
-// NOTE: the VCC pin should be fed from Arduino 5V pin for use on any 5V Arduino (did they forget to add this connection or add a jumper?)
-// select one and adapt to your mapping
-//GxEPD2_4G_4G<GxEPD2_213_flex, MAX_HEIGHT(GxEPD2_213_flex)> display(GxEPD2_213_flex(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDEW0213I5F
-//GxEPD2_4G_4G<GxEPD2_290_T5, MAX_HEIGHT(GxEPD2_290_T5)> display(GxEPD2_290_T5(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDEW029T5
-//GxEPD2_4G_4G<GxEPD2_290_T5D, MAX_HEIGHT(GxEPD2_290_T5D)> display(GxEPD2_290_T5D(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDEW029T5D
-//GxEPD2_4G_4G<GxEPD2_290_I6FD, MAX_HEIGHT(GxEPD2_290_I6FD)> display(GxEPD2_290_I6FD(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDEW029I6FD
-//GxEPD2_4G_4G<GxEPD2_290_T94, MAX_HEIGHT(GxEPD2_290_T94)> display(GxEPD2_290_T94(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDEW029T94
-//GxEPD2_4G_4G<GxEPD2_270, MAX_HEIGHT(GxEPD2_270)> display(GxEPD2_270(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-//GxEPD2_4G_4G<GxEPD2_371, MAX_HEIGHT(GxEPD2_371)> display(GxEPD2_371(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-//GxEPD2_4G_4G<GxEPD2_420, MAX_HEIGHT(GxEPD2_420)> display(GxEPD2_420(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-//GxEPD2_4G_4G<GxEPD2_750_T7, MAX_HEIGHT(GxEPD2_750_T7)> display(GxEPD2_750_T7(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-#endif
-
-#include "GxEPD2_boards_added.h"
-//#include "GxEPD2_more_boards_added.h" // private
+// or select the display class and display driver class in the following file (new style):
+#include "GxEPD2_4G_display_selection_new_style.h"
 
 #if !defined(__AVR) && !defined(_BOARD_GENERIC_STM32F103C_H_) && !defined(ARDUINO_BLUEPILL_F103C8)
 
@@ -165,12 +40,13 @@
 #include "bitmaps/Bitmaps176x264.h" // 2.7"  b/w
 #include "bitmaps/Bitmaps240x416.h" // 3.71"  b/w
 #include "bitmaps/Bitmaps400x300.h" // 4.2"  b/w
-//#include "bitmaps/Bitmaps4g104x212.h" // 2.13" b/w flexible GDEW0213I5F
-//#include "bitmaps/Bitmaps4g128x296.h" // 2.9"  b/w
-//#include "bitmaps/Bitmaps4g176x264.h" // 2.7"  b/w
+#include "bitmaps/Bitmaps4g104x212.h" // 2.13" b/w flexible GDEW0213I5F
+#include "bitmaps/Bitmaps4g128x296.h" // 2.9"  b/w
+#include "bitmaps/Bitmaps4g176x264.h" // 2.7"  b/w
 #include "bitmaps/Bitmaps4g_I6FD_128x296.h"
 #include "bitmaps/Bitmaps4g400x300.h" // 4.2"  b/w
 #include "bitmaps/Bitmaps4g800x480.h" // 7.5"  b/w
+#include "bitmaps/WS_Bitmaps4g.h"
 // tests
 //#include "bitmaps/Bitmaps2g104x104.h"
 
@@ -223,6 +99,8 @@ void setup()
   delay(1000);
   drawBitmaps();
   showGreyLevels();
+  //display.epd2.drawGreyLevels(); delay(3000);
+  //display.powerOff(); return;
   if (display.epd2.hasPartialUpdate)
   {
     showPartialUpdate();
@@ -544,7 +422,6 @@ void deepSleepTest()
 
 void showGreyLevels()
 {
-  display.clearScreen();
   display.setRotation(0);
   uint16_t h = display.height() / 4;
   display.firstPage();
@@ -557,7 +434,7 @@ void showGreyLevels()
     display.fillRect(0, 3 * h, display.width(), h, GxEPD_BLACK);
   }
   while (display.nextPage());
-  delay(2000);
+  delay(3000);
 }
 
 void showBox(uint16_t x, uint16_t y, uint16_t w, uint16_t h, bool partial)
@@ -654,7 +531,7 @@ void showPartialUpdate()
   uint16_t box_h = 20;
   uint16_t cursor_y = box_y + box_h - 6;
   float value = 13.95;
-  uint16_t incr = display.epd2.hasFastPartialUpdate ? 1 : 3;
+  uint16_t incr = display.epd2.hasFastPartialUpdate ? 3 : 3;
   display.setFont(&FreeMonoBold9pt7b);
   display.setTextColor(GxEPD_BLACK);
   // show where the update box is
@@ -711,6 +588,7 @@ void showPartialUpdate()
 void drawBitmaps()
 {
   display.setFullWindow();
+  display.setRotation(0);
 #ifdef _GxBitmaps104x212_H_
   drawBitmaps104x212();
 #endif
@@ -725,6 +603,10 @@ void drawBitmaps()
 #endif
 #ifdef _GxBitmaps400x300_H_
   drawBitmaps400x300();
+#endif
+  // 4 grey levels
+#ifdef _WS_Bitmaps4g_H_
+  drawWsBitmaps4g();
 #endif
 #ifdef _GxBitmaps4g104x212_H_
   drawBitmaps4g104x212();
@@ -763,7 +645,7 @@ void drawBitmaps104x212()
     WS_Bitmap104x212, Bitmap104x212_1, Bitmap104x212_2, Bitmap104x212_3
   };
 #endif
-  if (display.epd2.panel == GxEPD2_4G::GDEW0213I5F)
+  if ((display.epd2.WIDTH == 104) && (display.epd2.HEIGHT == 212) && !display.epd2.hasColor)
   {
     for (uint16_t i = 0; i < sizeof(bitmaps) / sizeof(char*); i++)
     {
@@ -774,6 +656,16 @@ void drawBitmaps104x212()
         display.drawBitmap(0, 0, bitmaps[i], display.epd2.WIDTH, display.epd2.HEIGHT, GxEPD_BLACK);
       }
       while (display.nextPage());
+      delay(2000);
+    }
+  }
+  else
+  {
+    int16_t x = (int16_t(display.epd2.WIDTH) - 104) / 2;
+    int16_t y = (int16_t(display.epd2.HEIGHT) - 212) / 2;
+    for (uint16_t i = 0; i < sizeof(bitmaps) / sizeof(char*); i++)
+    {
+      display.drawImage(bitmaps[i], x, y, 104, 212, true, false, true);
       delay(2000);
     }
   }
@@ -794,7 +686,7 @@ void drawBitmaps128x296()
     Bitmap128x296_1, logo128x296 //, first128x296, second128x296, third128x296
   };
 #endif
-  if (display.epd2.panel == GxEPD2_4G::GDEH029A1)
+  if ((display.epd2.WIDTH == 128) && (display.epd2.HEIGHT == 296) && !display.epd2.hasColor)
   {
     bool m = display.mirror(true);
     for (uint16_t i = 0; i < sizeof(bitmaps) / sizeof(char*); i++)
@@ -827,7 +719,7 @@ void drawBitmaps176x264()
     Bitmap176x264_1, Bitmap176x264_2 //, Bitmap176x264_3, Bitmap176x264_4, Bitmap176x264_5
   };
 #endif
-  if (display.epd2.panel == GxEPD2_4G::GDEW027W3)
+  if ((display.epd2.WIDTH == 176) && (display.epd2.HEIGHT == 264) && !display.epd2.hasColor)
   {
     for (uint16_t i = 0; i < sizeof(bitmaps) / sizeof(char*); i++)
     {
@@ -858,7 +750,7 @@ void drawBitmaps240x416()
     Bitmap240x460_1, Bitmap240x460_2, Bitmap240x460_3
   };
 #endif
-  if (display.epd2.panel == GxEPD2_4G::GDEW0371W7)
+  if ((display.epd2.WIDTH == 240) && (display.epd2.HEIGHT == 416) && !display.epd2.hasColor)
   {
     for (uint16_t i = 0; i < sizeof(bitmaps) / sizeof(char*); i++)
     {
@@ -886,7 +778,7 @@ void drawBitmaps400x300()
 #else
   const unsigned char* bitmaps[] = {}; // not enough code space
 #endif
-  if (display.epd2.panel == GxEPD2_4G::GDEW042T2)
+  if ((display.epd2.WIDTH == 400) && (display.epd2.HEIGHT == 300) && !display.epd2.hasColor)
   {
     display.firstPage();
     do
@@ -914,9 +806,7 @@ void drawBitmaps400x300()
 #ifdef _GxBitmaps4g104x212_H_
 void drawBitmaps4g104x212()
 {
-  if ((display.epd2.panel == GxEPD2_4G::GDEW075T7) || (display.epd2.panel == GxEPD2_4G::GDEW042T2) || (display.epd2.panel == GxEPD2_4G::GDEW0371W7) ||
-      (display.epd2.panel == GxEPD2_4G::GDEW029T5) || (display.epd2.panel == GxEPD2_4G::GDEW029T5D) || (display.epd2.panel == GxEPD2_4G::GDEW029I6FD) ||
-      (display.epd2.panel == GxEPD2_4G::GDEM029T94) || (display.epd2.panel == GxEPD2_4G::GDEW027W3) || (display.epd2.panel == GxEPD2_4G::GDEW0213I5F))
+  if ((display.epd2.WIDTH >= 104) && (display.epd2.HEIGHT >= 212))
   {
     display.setFullWindow();
     display.firstPage();
@@ -936,9 +826,7 @@ void drawBitmaps4g104x212()
 #ifdef _GxBitmaps4g128x296_H_
 void drawBitmaps4g128x296()
 {
-  if ((display.epd2.panel == GxEPD2_4G::GDEW075T7) || (display.epd2.panel == GxEPD2_4G::GDEW042T2) || (display.epd2.panel == GxEPD2_4G::GDEW0371W7) ||
-      (display.epd2.panel == GxEPD2_4G::GDEW029T5) || (display.epd2.panel == GxEPD2_4G::GDEW029T5D) || (display.epd2.panel == GxEPD2_4G::GDEW029I6FD) ||
-      (display.epd2.panel == GxEPD2_4G::GDEM029T94) || (display.epd2.panel == GxEPD2_4G::GDEW027W3) || (display.epd2.panel == GxEPD2_4G::GDEW0213I5F))
+  if ((display.epd2.WIDTH >= 128) && (display.epd2.HEIGHT >= 296))
   {
     display.setFullWindow();
     display.firstPage();
@@ -960,6 +848,7 @@ void drawBitmaps4g_I6FD_128x296()
 {
   if ((display.epd2.WIDTH >= 128) && (display.epd2.HEIGHT >= 296))
   {
+    display.writeScreenBuffer();
     display.epd2.drawImage_4G(Bitmap4g128x296_I6FD, 4, 0, 0, 128, 296, false, false, true); delay(2000);
     display.drawImage(Bitmap128x296_I6FD_1, 0, 0, 128, 296, false, false, true); delay(2000);
     display.drawImage(Bitmap128x296_I6FD_2, 0, 0, 128, 296, false, false, true); delay(2000);
@@ -995,9 +884,7 @@ void drawBitmaps4g_I6FD_128x296()
 #ifdef _GxBitmaps4g176x264_H_
 void drawBitmaps4g176x264()
 {
-  if ((display.epd2.panel == GxEPD2_4G::GDEW075T7) || (display.epd2.panel == GxEPD2_4G::GDEW042T2) || (display.epd2.panel == GxEPD2_4G::GDEW0371W7) ||
-      (display.epd2.panel == GxEPD2_4G::GDEW029T5) || (display.epd2.panel == GxEPD2_4G::GDEW029T5D) || (display.epd2.panel == GxEPD2_4G::GDEW029I6FD) ||
-      (display.epd2.panel == GxEPD2_4G::GDEM029T94) || (display.epd2.panel == GxEPD2_4G::GDEW027W3) || (display.epd2.panel == GxEPD2_4G::GDEW0213I5F))
+  if ((display.epd2.WIDTH >= 176) && (display.epd2.HEIGHT >= 264))
   {
     display.setFullWindow();
     display.firstPage();
@@ -1017,9 +904,7 @@ void drawBitmaps4g176x264()
 #ifdef _GxBitmaps4g400x300_H_
 void drawBitmaps4g400x300()
 {
-  if ((display.epd2.panel == GxEPD2_4G::GDEW075T7) || (display.epd2.panel == GxEPD2_4G::GDEW042T2) || (display.epd2.panel == GxEPD2_4G::GDEW0371W7) ||
-      (display.epd2.panel == GxEPD2_4G::GDEW029T5) || (display.epd2.panel == GxEPD2_4G::GDEW029T5D) || (display.epd2.panel == GxEPD2_4G::GDEW029I6FD) ||
-      (display.epd2.panel == GxEPD2_4G::GDEM029T94) || (display.epd2.panel == GxEPD2_4G::GDEW027W3) || (display.epd2.panel == GxEPD2_4G::GDEW0213I5F))
+  if ((display.epd2.WIDTH >= 128) && (display.epd2.HEIGHT >= 296))
   {
     display.setFullWindow();
     display.setFont(&FreeMonoBold9pt7b);
@@ -1038,13 +923,12 @@ void drawBitmaps4g400x300()
       while (display.nextPage());
       delay(2000);
     }
-    display.epd2.clearScreen();
-    display.epd2.drawImage_4G(Bitmap4g400x300_1, 4, 0, 0, 400, 300, false, false, true);
-    delay(2000);
-    //display.epd2.clearScreen();
-    //delay(1000);
-    //display.epd2.drawImagePart_4G(Bitmap4g400x300_1, 4, 100, 100, 400, 300, 0, 0, 300, 200, false, false, true);
-    //delay(2000);
+    if ((display.epd2.WIDTH >= 400) && (display.epd2.HEIGHT >= 300))
+    {
+      display.writeScreenBuffer();
+      display.epd2.drawImage_4G(Bitmap4g400x300_1, 4, (display.epd2.WIDTH - 400) / 2, (display.epd2.HEIGHT - 300) / 2, 400, 300, false, false, true);
+      delay(2000);
+    }
   }
 }
 #endif
@@ -1052,17 +936,55 @@ void drawBitmaps4g400x300()
 #ifdef _GxBitmaps4g800x480_H_
 void drawBitmaps4g800x480()
 {
-  if (display.epd2.panel == GxEPD2_4G::GDEW075T7)
-
+  if ((display.epd2.WIDTH == 800) && (display.epd2.HEIGHT == 480))
   {
     //Serial.print("sizeof(Bitmap4g800x480_1) is "); Serial.println(sizeof(Bitmap4g800x480_1));
     display.epd2.drawImage_4G(Bitmap4g800x480_1, 2, 0, 0, 800, 480, true, false, true);
     delay(2000);
-    //display.epd2.clearScreen();
-    //delay(1000);
-    //display.epd2.drawImagePart_4G(Bitmap4g800x480_1, 2, 100, 100, 800, 480, 0, 0, 700, 380, true, false, true);
-    //delay(2000);
   }
+}
+#endif
+
+#ifdef _WS_Bitmaps4g_H_
+void drawWsBitmaps4g()
+{
+  Serial.println("drawWsBitmaps4g()");
+  //Serial.print("sizeof(WS_Bitmap4g200x150) is "); Serial.println(sizeof(WS_Bitmap4g200x150));
+  if ((display.epd2.WIDTH >= 200) && (display.epd2.HEIGHT >= 150))
+  {
+    //    display.setRotation(0);
+    //    display.setFullWindow();
+    //    display.firstPage();
+    //    do
+    //    {
+    //      display.fillScreen(GxEPD_WHITE);
+    //      display.drawGreyPixmap(WS_Bitmap4g200x150, 2, (display.epd2.WIDTH - 200) / 2, (display.epd2.HEIGHT - 150) / 2, 200, 150);
+    //    }
+    //    while (display.nextPage());
+    //    delay(2000);
+    display.writeScreenBuffer();
+    display.epd2.drawImage_4G(WS_Bitmap4g200x150, 2, (display.epd2.WIDTH - 200) / 2, (display.epd2.HEIGHT - 150) / 2, 200, 150, false, false, true);
+    delay(2000);
+  }
+  if ((display.epd2.WIDTH >= 176) && (display.epd2.HEIGHT >= 264))
+  {
+    display.writeScreenBuffer();
+    display.epd2.drawImage_4G(WS_Bitmap4g176x264, 2, (display.epd2.WIDTH - 176) / 2, (display.epd2.HEIGHT - 264) / 2, 176, 264, false, false, true);
+    delay(2000);
+  }
+  if ((display.epd2.WIDTH >= 128) && (display.epd2.HEIGHT >= 296))
+  {
+    display.writeScreenBuffer();
+    display.epd2.drawImage_4G(WS_Bitmap4g128x296, 2, (display.epd2.WIDTH - 128) / 2, (display.epd2.HEIGHT - 296) / 2, 128, 296, false, false, true);
+    delay(2000);
+  }
+  if ((display.epd2.WIDTH >= 400) && (display.epd2.HEIGHT >= 300))
+  {
+    display.writeScreenBuffer();
+    display.epd2.drawImage_4G(WS_Bitmap4g400x300, 2, (display.epd2.WIDTH - 400) / 2, (display.epd2.HEIGHT - 300) / 2, 400, 300, false, false, true);
+    delay(2000);
+  }
+  Serial.println("drawWsBitmaps4g() done");
 }
 #endif
 
@@ -1070,7 +992,7 @@ void drawBitmaps4g800x480()
 void drawBitmaps2g104x104()
 {
   //Serial.print("sizeof(Bitmap2g104x104) is "); Serial.println(sizeof(Bitmap2g104x104));
-  display.epd2.clearScreen();
+  display.writeScreenBuffer();
   display.epd2.drawImage_4G(Bitmap2g104x104, 2, display.epd2.WIDTH / 2 - 52, display.epd2.HEIGHT / 2 - 52, 104, 104, false, false, true);
   delay(2000);
   for (uint16_t r = 0; r <= 4; r++)

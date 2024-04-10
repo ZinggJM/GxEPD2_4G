@@ -31,7 +31,27 @@
 #endif
 
 #include "GxEPD2_4G_EPD.h"
+
+#if defined __has_include
+#  if __has_include("GxEPD2_4G_EPD.h")
+#    // __has_include can be used
+#  else
+#    // __has_include doesn't work for us, include anyway
+#    undef __has_include
+#    define __has_include(x) true
+#  endif
+#else
+#  // no __has_include, include anyway
+#  define __has_include(x) true
+#endif
+
+#if __has_include("gdey/GxEPD2_154_GDEY0154D67.h")
+#include "gdey/GxEPD2_154_GDEY0154D67.h"
+#endif
 #include "epd/GxEPD2_213_flex.h"
+#if __has_include("gdey/GxEPD2_213_GDEY0213B74.h")
+#include "gdey/GxEPD2_213_GDEY0213B74.h"
+#endif
 #include "epd/GxEPD2_290_T5.h"
 #include "epd/GxEPD2_290_T5D.h"
 #include "epd/GxEPD2_290_I6FD.h"
@@ -39,6 +59,12 @@
 #include "epd/GxEPD2_270.h"
 #include "epd/GxEPD2_371.h"
 #include "epd/GxEPD2_420.h"
+#if __has_include("gdey/GxEPD2_420_GDEY042T81.h")
+#include "gdey/GxEPD2_420_GDEY042T81.h"
+#endif
+#if __has_include("gdeq/GxEPD2_426_GDEQ0426T82.h")
+#include "gdeq/GxEPD2_426_GDEQ0426T82.h"
+#endif
 #include "epd/GxEPD2_750_T7.h"
 
 template<typename GxEPD2_Type, const uint16_t page_height>

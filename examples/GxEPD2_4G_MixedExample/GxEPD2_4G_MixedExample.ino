@@ -1,7 +1,7 @@
 // Display Library example for SPI e-paper panels from Dalian Good Display and boards from Waveshare.
-// Requires HW SPI and Adafruit_GFX. Caution: these e-papers require 3.3V supply AND data lines!
+// Requires HW SPI and Adafruit_GFX. Caution: the e-paper panels require 3.3V supply AND data lines!
 //
-// Display Library based on Demo Example from Good Display: http://www.e-paper-display.com/download_list/downloadcategoryid=34&isMode=false.html
+// Display Library based on Demo Example from Good Display: https://www.good-display.com/companyfile/32/
 //
 // Author: Jean-Marc Zingg
 //
@@ -9,9 +9,11 @@
 //
 // Library: https://github.com/ZinggJM/GxEPD2_4G
 
-// Supporting Arduino Forum Topics:
-// Waveshare e-paper displays with SPI: http://forum.arduino.cc/index.php?topic=487007.0
-// Good Dispay ePaper for Arduino: https://forum.arduino.cc/index.php?topic=436411.0
+// Supporting Arduino Forum Topics (closed, read only):
+// Good Display ePaper for Arduino: https://forum.arduino.cc/t/good-display-epaper-for-arduino/419657
+// Waveshare e-paper displays with SPI: https://forum.arduino.cc/t/waveshare-e-paper-displays-with-spi/467865
+//
+// Add new topics in https://forum.arduino.cc/c/using-arduino/displays/23 for new questions and issues
 
 // base class GxEPD2_GFX can be used to pass references or pointers to the display instance as parameter, uses ~1.2k more code
 // enable or disable GxEPD2_GFX base class
@@ -89,7 +91,7 @@ void setup()
   delay(1000);
   drawBitmaps();
   showGreyLevels();
-  if ((display.epd2.hasPartialUpdate) || false)
+  if ((display.epd2.hasPartialUpdate) || true)
   {
     showPartialUpdate();
     delay(1000);
@@ -543,7 +545,7 @@ void showPartialUpdate()
   uint16_t box_h = 24;
   uint16_t cursor_y = box_y + box_h - 6;
   float value = 13.95;
-  uint16_t incr = display_bw.epd2.hasFastPartialUpdate ? 1 : 3;
+  uint16_t incr = display_bw.epd2.hasFastPartialUpdate ? 3 : 3;
   display_bw.setFont(&FreeMonoBold9pt7b);
   display_bw.setTextColor(GxEPD_BLACK);
   // show where the update box is

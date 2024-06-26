@@ -66,6 +66,7 @@
 #include "gdeq/GxEPD2_426_GDEQ0426T82.h"
 #endif
 #include "epd/GxEPD2_750_T7.h"
+#include "epd/GxEPD2_750_T7Y.h"
 
 template<typename GxEPD2_Type, const uint16_t page_height>
 class GxEPD2_4G_BW_R : public GxEPD2_4G_GFX_BASE_CLASS

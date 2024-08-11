@@ -87,8 +87,13 @@
 - GDEY042T81     4.2" b/w 400x300, SSD1683
 - GDEQ0426T82    4.26" b/w 800x480, SSD1677
 - GDEW075T7      7.5" b/w 800x480, EK79655 (GD7965)
+- GDEY075T7      7.5" b/w 800x480, UC8179
 
-### Version 1.0.7
+### Version 1.0.8
+- added support for GDEY075T7 800x480
+- on GDEY075T7 grey level partial window update looks bad (greys out remainder)
+- on GDEY075T7 grey level partial window update is disabled by default
+#### Version 1.0.7
 - added support for GDEY0154D67 200x200
 - added support for GDEY0213B74 122x250
 - added support for GDEY042T81  400x300

@@ -32,6 +32,9 @@
 // these panels don't support mixed content because of missing partial window update support
 //#define GxEPD2_DRIVER_CLASS GxEPD2_290_T94 // GDEM029T94  128x296, SSD1680
 
+// these panels don't support mixed content because clearing the background before changing refresh mode
+//#define GxEPD2_DRIVER_CLASS GxEPD2_750_GDEY075T7  // GDEY075T7  800x480, UC8179 (GD7965), (FPC-C001 20.08.20)
+
 // SS is usually used for CS. define here for easy change
 #ifndef EPD_CS
 #define EPD_CS SS

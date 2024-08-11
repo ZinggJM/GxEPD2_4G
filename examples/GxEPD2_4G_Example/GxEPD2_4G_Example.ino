@@ -40,6 +40,7 @@
 #include "bitmaps/Bitmaps176x264.h" // 2.7"  b/w
 #include "bitmaps/Bitmaps240x416.h" // 3.71"  b/w
 #include "bitmaps/Bitmaps400x300.h" // 4.2"  b/w
+#include "bitmaps/Bitmaps800x480.h" // 7.5"  b/w
 #include "bitmaps/Bitmaps4g104x212.h" // 2.13" b/w flexible GDEW0213I5F
 #include "bitmaps/Bitmaps4g128x296.h" // 2.9"  b/w
 #include "bitmaps/Bitmaps4g176x264.h" // 2.7"  b/w
@@ -82,9 +83,9 @@ void setup()
   while (!digitalRead(15)) delay(100); // check safety pin for fail recovery
 #endif
   display.init(115200);
-  // first update should be full refresh
   helloWorld();
   delay(1000);
+  //display.writeScreenBuffer(0xff); display.refresh(); display.powerOff(); return;
   //display.epd2.drawGreyLevels(); return;
   helloFourGreyLevels();
   delay(1000);
@@ -98,6 +99,7 @@ void setup()
   showFont("FreeMonoBold9pt7b", &FreeMonoBold9pt7b);
   delay(1000);
   drawBitmaps();
+  //display.powerOff(); return;
   showGreyLevels();
   //display.epd2.drawGreyLevels(); delay(3000);
   //display.powerOff(); return;
@@ -604,6 +606,9 @@ void drawBitmaps()
 #ifdef _GxBitmaps400x300_H_
   drawBitmaps400x300();
 #endif
+#ifdef _GxBitmaps800x480_H_
+  drawBitmaps800x480();
+#endif
   // 4 grey levels
 #ifdef _WS_Bitmaps4g_H_
   drawWsBitmaps4g();
@@ -803,6 +808,50 @@ void drawBitmaps400x300()
 }
 #endif
 
+#ifdef _GxBitmaps800x480_H_
+void drawBitmaps800x480()
+{
+#if defined(ARDUINO_UNOR4_MINIMA) || defined(ARDUINO_UNOR4_WIFI)
+  const unsigned char* bitmaps[] =
+  {
+    Bitmap800x480_3, Bitmap800x480_4
+  };
+#elif !defined(__AVR)
+  const unsigned char* bitmaps[] =
+  {
+    Bitmap800x480_1, Bitmap800x480_2, Bitmap800x480_3, Bitmap800x480_4
+  };
+#else
+  const unsigned char* bitmaps[] = {}; // not enough code space
+#endif
+  if ((display.epd2.WIDTH == 800) && (display.epd2.HEIGHT == 480))
+  {
+    for (uint16_t i = 0; i < sizeof(bitmaps) / sizeof(char*); i++)
+    {
+      display.firstPage();
+      do
+      {
+        display.fillScreen(GxEPD_WHITE);
+        display.drawBitmap(0, 0, bitmaps[i], 800, 480, GxEPD_BLACK);
+      }
+      while (display.nextPage());
+      delay(2000);
+    }
+    for (uint16_t i = 0; i < sizeof(bitmaps) / sizeof(char*); i++)
+    {
+      //display.drawImage(bitmaps[i], 0, 0, 800, 480, true, false, true); delay(2000);
+      //display.writeImage(bitmaps[i], 0, 0, 800, 480, true, false, true); display.refresh(false); delay(2000);
+    }
+    if (display.epd2.panel == GxEPD2_4G::GDEW075T7)
+    {
+      // avoid ghosting caused by OTP waveform
+      display.clearScreen();
+      display.refresh(false); // full update
+    }
+  }
+}
+#endif
+
 #ifdef _GxBitmaps4g104x212_H_
 void drawBitmaps4g104x212()
 {
@@ -948,7 +997,7 @@ void drawBitmaps4g800x480()
 #ifdef _WS_Bitmaps4g_H_
 void drawWsBitmaps4g()
 {
-  Serial.println("drawWsBitmaps4g()");
+  //Serial.println("drawWsBitmaps4g()");
   //Serial.print("sizeof(WS_Bitmap4g200x150) is "); Serial.println(sizeof(WS_Bitmap4g200x150));
   if ((display.epd2.WIDTH >= 200) && (display.epd2.HEIGHT >= 150))
   {
@@ -984,7 +1033,7 @@ void drawWsBitmaps4g()
     display.epd2.drawImage_4G(WS_Bitmap4g400x300, 2, (display.epd2.WIDTH - 400) / 2, (display.epd2.HEIGHT - 300) / 2, 400, 300, false, false, true);
     delay(2000);
   }
-  Serial.println("drawWsBitmaps4g() done");
+  //Serial.println("drawWsBitmaps4g() done");
 }
 #endif
 

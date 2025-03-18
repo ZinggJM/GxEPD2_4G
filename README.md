@@ -58,6 +58,8 @@
 - Good Display ePaper for Arduino : https://forum.arduino.cc/index.php?topic=436411.0
 - Note that these topics are closed. Use only for reference.
 - create a new topic for each question or issue in https://forum.arduino.cc/c/using-arduino/displays/23
+- The Arduino Forum is no longer watched and answered by the Author.
+- New questions or issues should be posted on https://github.com/ZinggJM/GxEPD2/discussions
 
 ### Note on documentation
 - GxEPD2_4G uses Adafruit_GFX for Graphics and Text support, which is well documented there
@@ -83,13 +85,16 @@
 - GDEW029I6FD    2.9" b/w 128x296, UC8151D, flexible
 - GDEM029T94     2.9" b/w 128x296, SSD1680
 - GDEW0371W7     3.7" b/w 240x416, UC8171 (IL0324)
+- ED037TC1       3.7" b/w 280x480, SSD1677
 - GDEW042T2      4.2" b/w 400x300, UC8176 (IL0398)
 - GDEY042T81     4.2" b/w 400x300, SSD1683
 - GDEQ0426T82    4.26" b/w 800x480, SSD1677
 - GDEW075T7      7.5" b/w 800x480, EK79655 (GD7965)
 - GDEY075T7      7.5" b/w 800x480, UC8179
 
-### Version 1.0.8
+### Version 1.0.9
+- added support for ED037TC1 280x480
+#### Version 1.0.8
 - added support for GDEY075T7 800x480
 - on GDEY075T7 grey level partial window update looks bad (greys out remainder)
 - on GDEY075T7 grey level partial window update is disabled by default

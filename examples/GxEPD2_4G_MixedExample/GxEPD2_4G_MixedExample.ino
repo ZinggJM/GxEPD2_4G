@@ -39,6 +39,8 @@
 #include "bitmaps/Bitmaps4g_I6FD_128x296.h"
 #include "bitmaps/Bitmaps4g400x300.h" // 4.2"  b/w
 #include "bitmaps/Bitmaps4g800x480.h" // 7.5"  b/w
+#include "bitmaps/WS_Bitmaps4g.h"
+#include "bitmaps/WS_Bitmaps4g280x480.h"
 // tests
 //#include "bitmaps/Bitmaps2g104x104.h"
 
@@ -537,7 +539,7 @@ void helloWorld_bw()
 void showPartialUpdate()
 {
   // some useful background
-  if (display.epd2.hasPartialUpdate) showGreyLevels(); // helloWorld();
+  if (display.epd2.hasPartialUpdate) showGreyBackground(); // helloWorld();
   else helloWorld_bw();
   uint16_t box_x = 8;
   uint16_t box_y = 16;
@@ -598,6 +600,20 @@ void showPartialUpdate()
   }
 }
 
+void showGreyBackground()
+{
+    display.setFullWindow();
+    display.firstPage();
+    do
+    {
+      display.fillScreen(GxEPD_LIGHTGREY);
+#ifdef _GxBitmaps4g_I6FD_128x296_H_
+      display.drawGreyPixmap(Bitmap4g128x296_I6FD, 4, (display.epd2.WIDTH - 128) / 2, (display.epd2.HEIGHT - 296) / 2, 128, 296);
+#endif
+    }
+    while (display.nextPage());
+    delay(2000);
+}
 
 void drawBitmaps()
 {
@@ -616,6 +632,13 @@ void drawBitmaps()
 #endif
 #ifdef _GxBitmaps400x300_H_
   drawBitmaps400x300();
+#endif
+  // 4 grey levels
+#ifdef _WS_Bitmaps4g280x480_H_
+  drawWsBitmaps4g280x480();
+#endif
+#ifdef _WS_Bitmaps4g_H_
+  drawWsBitmaps4g();
 #endif
 #ifdef _GxBitmaps4g104x212_H_
   drawBitmaps4g104x212();
@@ -954,6 +977,60 @@ void drawBitmaps4g800x480()
     //display.epd2.drawImagePart_4G(Bitmap4g800x480_1, 2, 100, 100, 800, 480, 0, 0, 700, 380, true, false, true);
     //delay(2000);
   }
+}
+#endif
+
+#ifdef _WS_Bitmaps4g280x480_H_
+void drawWsBitmaps4g280x480()
+{
+  if ((display.epd2.WIDTH == 280) && (display.epd2.HEIGHT == 480))
+  {
+    display.epd2.drawImage_4G(WS_Bitmap4g280x480, 2, 0, 0, 280, 480, false, false, true);
+    delay(3000);
+  }  
+}
+#endif
+
+#ifdef _WS_Bitmaps4g_H_
+void drawWsBitmaps4g()
+{
+  //Serial.println("drawWsBitmaps4g()");
+  //Serial.print("sizeof(WS_Bitmap4g200x150) is "); Serial.println(sizeof(WS_Bitmap4g200x150));
+  if ((display.epd2.WIDTH >= 200) && (display.epd2.HEIGHT >= 150))
+  {
+    //    display.setRotation(0);
+    //    display.setFullWindow();
+    //    display.firstPage();
+    //    do
+    //    {
+    //      display.fillScreen(GxEPD_WHITE);
+    //      display.drawGreyPixmap(WS_Bitmap4g200x150, 2, (display.epd2.WIDTH - 200) / 2, (display.epd2.HEIGHT - 150) / 2, 200, 150);
+    //    }
+    //    while (display.nextPage());
+    //    delay(2000);
+    display.writeScreenBuffer();
+    display.epd2.drawImage_4G(WS_Bitmap4g200x150, 2, (display.epd2.WIDTH - 200) / 2, (display.epd2.HEIGHT - 150) / 2, 200, 150, false, false, true);
+    delay(2000);
+  }
+  if ((display.epd2.WIDTH >= 176) && (display.epd2.HEIGHT >= 264))
+  {
+    display.writeScreenBuffer();
+    display.epd2.drawImage_4G(WS_Bitmap4g176x264, 2, (display.epd2.WIDTH - 176) / 2, (display.epd2.HEIGHT - 264) / 2, 176, 264, false, false, true);
+    delay(2000);
+  }
+  if ((display.epd2.WIDTH >= 128) && (display.epd2.HEIGHT >= 296))
+  {
+    display.writeScreenBuffer();
+    display.epd2.drawImage_4G(WS_Bitmap4g128x296, 2, (display.epd2.WIDTH - 128) / 2, (display.epd2.HEIGHT - 296) / 2, 128, 296, false, false, true);
+    delay(2000);
+  }
+  if ((display.epd2.WIDTH >= 400) && (display.epd2.HEIGHT >= 300))
+  {
+    display.writeScreenBuffer();
+    display.epd2.drawImage_4G(WS_Bitmap4g400x300, 2, (display.epd2.WIDTH - 400) / 2, (display.epd2.HEIGHT - 300) / 2, 400, 300, false, false, true);
+    delay(2000);
+  }
+  //Serial.println("drawWsBitmaps4g() done");
 }
 #endif
 

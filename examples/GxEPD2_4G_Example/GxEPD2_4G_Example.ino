@@ -48,6 +48,7 @@
 #include "bitmaps/Bitmaps4g400x300.h" // 4.2"  b/w
 #include "bitmaps/Bitmaps4g800x480.h" // 7.5"  b/w
 #include "bitmaps/WS_Bitmaps4g.h"
+#include "bitmaps/WS_Bitmaps4g280x480.h"
 // tests
 //#include "bitmaps/Bitmaps2g104x104.h"
 
@@ -98,6 +99,7 @@ void setup()
   //delay(1000);
   showFont("FreeMonoBold9pt7b", &FreeMonoBold9pt7b);
   delay(1000);
+  display.clearScreen();
   drawBitmaps();
   //display.powerOff(); return;
   showGreyLevels();
@@ -610,6 +612,9 @@ void drawBitmaps()
   drawBitmaps800x480();
 #endif
   // 4 grey levels
+#ifdef _WS_Bitmaps4g280x480_H_
+  drawWsBitmaps4g280x480();
+#endif
 #ifdef _WS_Bitmaps4g_H_
   drawWsBitmaps4g();
 #endif
@@ -991,6 +996,17 @@ void drawBitmaps4g800x480()
     display.epd2.drawImage_4G(Bitmap4g800x480_1, 2, 0, 0, 800, 480, true, false, true);
     delay(2000);
   }
+}
+#endif
+
+#ifdef _WS_Bitmaps4g280x480_H_
+void drawWsBitmaps4g280x480()
+{
+  if ((display.epd2.WIDTH == 280) && (display.epd2.HEIGHT == 480))
+  {
+    display.epd2.drawImage_4G(WS_Bitmap4g280x480, 2, 0, 0, 280, 480, false, false, true);
+    delay(3000);
+  }  
 }
 #endif
 

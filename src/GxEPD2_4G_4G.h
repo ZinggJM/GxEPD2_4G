@@ -58,6 +58,7 @@
 #include "epd/GxEPD2_290_T94.h"
 #include "epd/GxEPD2_270.h"
 #include "epd/GxEPD2_371.h"
+#include "epd/GxEPD2_370_TC1.h"
 #include "epd/GxEPD2_420.h"
 #if __has_include("gdey/GxEPD2_420_GDEY042T81.h")
 #include "gdey/GxEPD2_420_GDEY042T81.h"
@@ -83,6 +84,8 @@ class GxEPD2_4G_4G_R : public GxEPD2_4G_GFX_BASE_CLASS
     {
       _page_height = page_height;
       _pages = (HEIGHT / _page_height) + ((HEIGHT % _page_height) > 0);
+      _reverse = (epd2_instance.panel == GxEPD2_4G::GDE0213B1);
+      _mirror = false;
       _using_partial_mode = false;
       _current_page = 0;
       setFullWindow();
@@ -126,7 +129,8 @@ class GxEPD2_4G_4G_R : public GxEPD2_4G_GFX_BASE_CLASS
       }
       // transpose partial window to 0,0
       x -= _pw_x;
-      y -= _pw_y;
+      if (!_reverse) y -= _pw_y;
+      else y = HEIGHT - _pw_y - y - 1;
       // clip to (partial) window
       if ((x < 0) || (x >= int16_t(_pw_w)) || (y < 0) || (y >= int16_t(_pw_h))) return;
       // adjust for current page
@@ -169,7 +173,8 @@ class GxEPD2_4G_4G_R : public GxEPD2_4G_GFX_BASE_CLASS
       }
       // transpose partial window to 0,0
       x -= _pw_x;
-      y -= _pw_y;
+      if (!_reverse) y -= _pw_y;
+      else y = HEIGHT - _pw_y - y - 1;
       // clip to (partial) window
       if ((x < 0) || (x >= _pw_w) || (y < 0) || (y >= _pw_h)) return;
       // adjust for current page
@@ -214,6 +219,12 @@ class GxEPD2_4G_4G_R : public GxEPD2_4G_GFX_BASE_CLASS
       setFullWindow();
     }
 
+    // release SPI and control pins
+    void end()
+    {
+      epd2.end();
+    }
+
     void fillScreen(uint16_t color) // 0x0 black, >0x0 white, to buffer
     {
       uint32_t brightness = (uint32_t(color & 0xF800) + uint32_t((color & 0x07E0) << 5) + uint32_t((color & 0x001F) << 11));
@@ -246,8 +257,9 @@ class GxEPD2_4G_4G_R : public GxEPD2_4G_GFX_BASE_CLASS
       w = gx_uint16_min(w, width() - x);
       h = gx_uint16_min(h, height() - y);
       _rotate(x, y, w, h);
-      epd2.writeImagePart_4G(_buffer, 2, x, y, WIDTH, _page_height, x, y, w, h);
-      epd2.refresh(x, y, w, h);
+      uint16_t y_part = _reverse ? HEIGHT - h - y : y;
+      epd2.writeImagePart_4G(_buffer, 2, x, y_part, GxEPD2_Type::WIDTH, _page_height, x, y_part, w, h);
+      epd2.refresh(x, y_part, w, h);
     }
 
     void setFullWindow()
@@ -255,7 +267,7 @@ class GxEPD2_4G_4G_R : public GxEPD2_4G_GFX_BASE_CLASS
       _using_partial_mode = false;
       _pw_x = 0;
       _pw_y = 0;
-      _pw_w = WIDTH;
+      _pw_w = GxEPD2_Type::WIDTH;
       _pw_h = HEIGHT;
     }
 
@@ -277,6 +289,7 @@ class GxEPD2_4G_4G_R : public GxEPD2_4G_GFX_BASE_CLASS
       _pw_w += _pw_x % 8;
       if (_pw_w % 8 > 0) _pw_w += 8 - _pw_w % 8;
       _pw_x -= _pw_x % 8;
+      if (_reverse) _pw_y = HEIGHT - _pw_h - _pw_y;
     }
 
     void firstPage()
@@ -668,7 +681,7 @@ class GxEPD2_4G_4G_R : public GxEPD2_4G_GFX_BASE_CLASS
     }
   private:
     uint8_t _buffer[(GxEPD2_Type::WIDTH / 4) * page_height];
-    bool _using_partial_mode, _second_phase, _mirror;
+    bool _using_partial_mode, _second_phase, _mirror, _reverse;
     uint16_t _width_bytes, _pixel_bytes;
     int16_t _current_page;
     uint16_t _pages, _page_height;
